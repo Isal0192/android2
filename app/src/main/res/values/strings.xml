@@ -1,4 +1,8 @@
 <resources>
+    <!--    all sourch  -->
+    <string name="submit">Submit</string>
+
+    <!--    page 1  -->
     <string name="app_name">JagaJajan</string>
     <string name="page1_h1">Start selling online with JagaJual</string>
     <string name="page1_h2">The eccommerce platform trusted bu over a milion businesses worldwide</string>
@@ -7,4 +11,25 @@
     <string name="page1_text3">Manage from anywhere</string>
     <string name="page1_btn1">Get Started</string>
     <string name="page1_btn2">Log In</string>
+
+    <!--    page 2 Get Started  -->
+    <string name="page2_h1">Start selling with JagaJual</string>
+    <string name="page2_text1">choice your seller</string>
+    <string name="page2_text2">allow suplayer to apply</string>
+    <string name="page2_btn1">Continue</string>
+
+    <!-- page auth sigIn -->
+    <string name="sigIn_h1_1">Sign In</string>
+    <string name="sigIn_h1_2">White JagaJual</string>
+    <string name="sigIn_fName">First Name</string>
+    <string name="sigIn_lName">Last Name</string>
+    <string name="sigIn_address">Full Address</string>
+    <string name="sigIn_email">Email</string>
+    <string name="sigIn_password">Password</string>
+    <string name="sigIn_text1">Register As:</string>
+    <string name="sigIn_asSeller">As Seller</string>
+    <string name="sigIn_asDepositer">As Depositer</string>
+    <string name="sigIn_text2">Do you have account? Log in</string>
+    <string name="sigIn_text3">privacy policy.</string>
+
 </resources>

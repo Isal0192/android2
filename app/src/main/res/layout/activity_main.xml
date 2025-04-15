@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="104dp"
         android:orientation="vertical"
+        android:padding="9dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -86,6 +87,7 @@
         </GridLayout>
 
         <Button
+            android:id="@+id/get_stared"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

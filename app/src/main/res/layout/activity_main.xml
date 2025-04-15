@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="104dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:width="326dp"
+            android:height="40dp"
+            android:text="@string/page1_h1"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:width="270dp"
+            android:height="40dp"
+            android:text="@string/page1_h2"
+            android:textAlignment="center" />
+
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:columnCount="2"
+            android:rowCount="3"
+            android:padding="3dp">
+
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="19dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_launcher_foreground" />
+
+            <TextView
+                android:layout_gravity="center"
+                android:width="203dp"
+                android:height="20dp"
+                android:text="@string/page1_text1"
+                android:textColor="@color/black" />
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="19dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_launcher_foreground" />
+
+            <TextView
+                android:layout_gravity="center"
+                android:width="203dp"
+                android:height="20dp"
+                android:text="@string/page1_text2"
+                android:textColor="@color/black" />
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="19dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_launcher_foreground" />
+
+            <TextView
+                android:layout_gravity="center"
+                android:width="203dp"
+                android:height="20dp"
+                android:text="@string/page1_text3"
+                android:textColor="@color/black" />
+        </GridLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:width="338dp"
+            android:height="47dp"
+            android:backgroundTint="@color/black"
+            android:text="@string/page1_btn1"
+            android:textColor="@color/white" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:width="338dp"
+            android:height="47dp"
+            android:background="#00FFFFFF"
+            android:text="@string/page1_btn2"
+            android:textColor="@color/black" />
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

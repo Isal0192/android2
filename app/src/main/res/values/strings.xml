@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">JagaJajan</string>
+    <string name="page1_h1">Start selling online with JagaJual</string>
+    <string name="page1_h2">The eccommerce platform trusted bu over a milion businesses worldwide</string>
+    <string name="page1_text1">Create your online strore</string>
+    <string name="page1_text2">Grow your audience</string>
+    <string name="page1_text3">Manage from anywhere</string>
+    <string name="page1_btn1">Get Started</string>
+    <string name="page1_btn2">Log In</string>
+</resources>

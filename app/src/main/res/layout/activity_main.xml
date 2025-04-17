@@ -50,7 +50,8 @@
                 android:layout_width="18dp"
                 android:layout_height="19dp"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_launcher_foreground" />
+                android:src="@drawable/ic_launcher_foreground"
+                tools:srcCompat="@drawable/pakeage_plus" />
 
             <TextView
                 android:layout_gravity="center"
@@ -63,7 +64,8 @@
                 android:layout_width="18dp"
                 android:layout_height="19dp"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_launcher_foreground" />
+                android:src="@drawable/ic_launcher_foreground"
+                tools:srcCompat="@drawable/bar_chart_square_up" />
 
             <TextView
                 android:layout_gravity="center"
@@ -76,7 +78,8 @@
                 android:layout_width="18dp"
                 android:layout_height="19dp"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_launcher_foreground" />
+                android:src="@drawable/ic_launcher_foreground"
+                tools:srcCompat="@drawable/calender" />
 
             <TextView
                 android:layout_gravity="center"

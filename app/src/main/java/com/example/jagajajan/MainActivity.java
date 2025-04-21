@@ -7,17 +7,19 @@ import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
-    Button get_started;
+    Button login, sigin;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        get_started = findViewById(R.id.get_stared);
+        login = findViewById(R.id.to_sigin);
 
-        get_started.setOnClickListener(new View.OnClickListener() {
+        login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent to_get_started = new Intent(getApplicationContext(), getStarted.class);
+                Intent to_get_started = new Intent(getApplicationContext(), login_page.class);
                 startActivity(to_get_started);
             }
         });

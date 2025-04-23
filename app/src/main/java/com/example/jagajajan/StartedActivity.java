@@ -5,18 +5,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 
-public class getStarted extends AppCompatActivity {
-    Button btnContinue, sigin;
+public class StartedActivity extends AppCompatActivity {
+    Button btnContinue, skip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_get_started);
+        setContentView(R.layout.activity_started);
         btnContinue = findViewById(R.id.btn_continue);
-        sigin = findViewById(R.id.sigin);
+        skip = findViewById(R.id.skip);
 
-        sigin.setOnClickListener(v ->{
-            Intent intent = new Intent(getApplicationContext(), signin_page.class);
+        skip.setOnClickListener(v ->{
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(intent);
         });
 

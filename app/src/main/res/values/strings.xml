@@ -1,42 +1,41 @@
 <resources>
-    <!--    all sourch  -->
     <string name="submit">Submit</string>
-    <string name="sigin">Sign In</string>
-    <string name="app_name">JagaJajan</string>
+    <string name="sign_in">Sign In</string>
+    <string name="app_name">JagaJual</string>
     <string name="login">Log In</string>
 
-    <!--    page 1  -->
+    <!-- Page 1 -->
     <string name="page1_h1">Start selling online with JagaJual</string>
-    <string name="page1_h2">The eccommerce platform trusted bu over a milion businesses worldwide</string>
-    <string name="page1_text1">Create your online strore</string>
+    <string name="page1_h2">The e-commerce platform trusted by over a million businesses worldwide</string>
+    <string name="page1_text1">Create your online store</string>
     <string name="page1_text2">Grow your audience</string>
     <string name="page1_text3">Manage from anywhere</string>
     <string name="page1_btn1">Get Started</string>
 
-
-    <!--    page 2 Get Started  -->
+    <!-- Page 2 Get Started -->
     <string name="page2_h1">Start selling with JagaJual</string>
-    <string name="page2_text1">choice your seller</string>
-    <string name="page2_text2">allow suplayer to apply</string>
+    <string name="page2_text1">Choose your seller</string>
+    <string name="page2_text2">Allow supplier to apply</string>
     <string name="page2_btn1">Continue</string>
     <string name="btn_skip">Skip</string>
 
-    <!-- page auth sigIn -->
-    <string name="sigIn_h1_2">White JagaJual</string>
-    <string name="sigIn_fName">First Name</string>
-    <string name="sigIn_lName">Last Name</string>
-    <string name="sigIn_address">Full Address</string>
-    <string name="sigIn_email">Email</string>
-    <string name="sigIn_password">Password</string>
-    <string name="sigIn_konfirm_password">Konfirm Password</string>
-    <string name="sigIn_text1">Register As:</string>
-    <string name="sigIn_asSeller">As Seller</string>
-    <string name="sigIn_asDepositer">As Depositer</string>
-    <string name="sigIn_text2">Do you have account? Log in</string>
-    <string name="sigIn_text2b">Do you have account? Sing in</string>
-    <string name="sigIn_text3">privacy policy.</string>
+    <!-- Page auth sign in -->
+    <string name="sign_in_h1_2">With JagaJual</string>
+    <string name="sign_in_first_name">First Name</string>
+    <string name="sign_in_last_name">Last Name</string>
+    <string name="sign_in_address">Full Address</string>
+    <string name="sign_in_email">Email</string>
+    <string name="sign_in_password">Password</string>
+    <string name="sign_in_confirm_password">Confirm Password</string>
+    <string name="sign_in_text1">Register As:</string>
+    <string name="sign_in_as_seller">As Seller</string>
+    <string name="sign_in_as_depositer">As Depositer</string>
+    <string name="sign_in_text2">Do you have an account? Log in</string>
+    <string name="sign_in_text2b">Do you have an account? Sign in</string>
+    <string name="sign_in_text3">Privacy Policy</string>
 
-<!--    username    -->
-    <string name="username">username</string>
+    <string name="username">Username</string>
 
+    <!-- Placeholder -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

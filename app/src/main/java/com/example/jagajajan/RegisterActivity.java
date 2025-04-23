@@ -17,7 +17,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class signin_page extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
 
     Button submit;
     TextView login;
@@ -30,7 +30,7 @@ public class signin_page extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signin_page);
+        setContentView(R.layout.activity_register);
 
         // Inisialisasi semua komponen
         submit = findViewById(R.id.submit);
@@ -63,7 +63,7 @@ public class signin_page extends AppCompatActivity {
                             jsonBody,
                             response -> {
                                 Toast.makeText(getApplicationContext(), "Registrasi berhasil", Toast.LENGTH_SHORT).show();
-                                startActivity   (new Intent(getApplicationContext(), login_page.class));
+                                startActivity   (new Intent(getApplicationContext(), LoginActivity.class));
                                 finish();
                             },
                             error -> {
@@ -87,7 +87,7 @@ public class signin_page extends AppCompatActivity {
 
         // Ketika teks login diklik
         login.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), login_page.class);
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(intent);
             finish();
         });

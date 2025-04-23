@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class login_page extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
     Button btnSubmit;
     TextView singin, forgetPassword;
     EditText username, password;
@@ -20,7 +20,7 @@ public class login_page extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_page);
+        setContentView(R.layout.activity_login);
 
         // Inisialisasi komponen
         eyeIcon = findViewById(R.id.eyeIcon);
@@ -59,7 +59,7 @@ public class login_page extends AppCompatActivity {
                 Toast.makeText(this, "Login berhasil sebagai: " + user, Toast.LENGTH_SHORT).show();
 
                 // Contoh: pindah ke halaman utama
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), Home.class);
                 startActivity(intent);
                 finish(); // menutup login page
             }
@@ -67,7 +67,7 @@ public class login_page extends AppCompatActivity {
 
         // Aksi klik "Sign In"
         singin.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), signin_page.class);
+            Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
             startActivity(intent);
         });
 

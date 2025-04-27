@@ -3,6 +3,7 @@ package com.example.jagajajan;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -21,11 +22,11 @@ public class RegisterActivity extends AppCompatActivity {
 
     Button submit;
     TextView login;
-    EditText username, number, email, password, konfirm_pass;
+    EditText full_name, username, number, email, password, konfirm_pass;
     CheckBox agree;
     RequestQueue queue;
 
-    String url = "http://192.168.0.107:3000/api/auth/register"; // Pastikan IP dan PORT benar
+    String url = ConstantsVariabels.BASE_URL + ConstantsVariabels.ENDPPOINT_REGISTER;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,13 +37,14 @@ public class RegisterActivity extends AppCompatActivity {
         submit = findViewById(R.id.submit);
         login = findViewById(R.id.login);
 
-
+        full_name = findViewById(R.id.full_name);
         username = findViewById(R.id.username);
         number = findViewById(R.id.number);
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         konfirm_pass = findViewById(R.id.konfirm_password);
         agree = findViewById(R.id.accpt_privasy_policy);
+
 
         // Inisialisasi Volley queue
         queue = Volley.newRequestQueue(this);
@@ -52,6 +54,7 @@ public class RegisterActivity extends AppCompatActivity {
             if (validateInputs()) {
                 try {
                     JSONObject jsonBody = new JSONObject();
+                    jsonBody.put("full_name", full_name.getText().toString());
                     jsonBody.put("username", username.getText().toString());
                     jsonBody.put("no_hp", number.getText().toString());
                     jsonBody.put("email", email.getText().toString());
@@ -86,15 +89,15 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
         // Ketika teks login diklik
-        login.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-            startActivity(intent);
-            finish();
-        });
+        ViewUtils.setTextViewOnClickListener((TextView) findViewById(R.id.login), this, LoginActivity.class);
     }
 
     // Validasi input
     private boolean validateInputs() {
+        if (full_name.getText().toString().trim().isEmpty()) {
+            showToast("Username harus diisi");
+            return false;
+        }
         if (username.getText().toString().trim().isEmpty()) {
             showToast("Username harus diisi");
             return false;

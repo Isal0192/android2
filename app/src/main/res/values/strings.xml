@@ -34,7 +34,7 @@
     <string name="sign_in_text2b">Do you have an account? Sign in</string>
     <string name="sign_in_text3">Privacy Policy</string>
 
-    <string name="username">Username</string>
+    <string name="username">@Username</string>
 
     <!-- Placeholder -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

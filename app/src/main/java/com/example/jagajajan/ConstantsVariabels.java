@@ -7,11 +7,12 @@ import android.view.View;
 import android.view.Window;
 
 public class ConstantsVariabels {
-    public static final String BASE_URL = "http://192.168.129.180:3000/api/";
+    public static final String BASE_URL = "http://192.168.104.180:3000/api/";
     public static final String ENDPOINT_LOGIN = "auth/login";
     public static final String ENDPPOINT_REGISTER = "auth/register";
     public static final String ENDPOINT_USER = "user/";
     public static final String ENDPOINT_WARUNG = "warung/register";
+    public static final String ENPOINT_WARUNG = "warung/all";
 
     public static void hideSystemUI(Window window) {
         if (window != null) {

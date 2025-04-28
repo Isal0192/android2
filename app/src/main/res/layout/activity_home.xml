@@ -33,7 +33,7 @@
             android:layout_height="40dp">
 
             <ImageButton
-                android:id="@+id/profile_icon"
+                android:id="@+id/profile"
                 android:layout_width="38dp"
                 android:layout_height="match_parent"
                 android:layout_centerHorizontal="true"
@@ -83,11 +83,11 @@
 
     </LinearLayout>
 
-    <!-- Horizontal Card List -->
+    <!-- verical Card List -->
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
+        android:id="@+id/recycler_view_data"
         android:layout_width="match_parent"
-        android:layout_height="140dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/ly_title_text"
         android:layout_marginTop="8dp"
         android:paddingStart="8dp"

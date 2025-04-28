@@ -14,6 +14,15 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.DataViewHolder
 
     private Context context;
     private List<ItemsContens> dataList;
+    private OnItemClickListener mListener; // Tambahkan listener
+
+    public interface OnItemClickListener { // Definisikan interface
+        void onItemClick(View view, int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) { // Set listener
+        this.mListener = listener;
+    }
 
     public DataAdapter(Context context, List<ItemsContens> dataList) {
         this.context = context;
@@ -23,18 +32,16 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.DataViewHolder
     @NonNull
     @Override
     public DataViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_contens, parent, false);
-        return new DataViewHolder(itemView);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_contens, parent, false);
+        return new DataViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull DataViewHolder holder, int position) {
-        ItemsContens currentItem = dataList.get(position);
-        holder.textNama.setText(currentItem.getNama());
-        holder.textDeskripsi.setText(currentItem.getDeskripsi());
-        holder.jamOprasi.setText(currentItem.getTime());
-        // Set data lain ke elemen UI di CardView jika ada
+        ItemsContens item = dataList.get(position);
+        holder.judulTextView.setText(item.getNama());
+        holder.deskripsiTextView.setText(item.getDeskripsi());
+        holder.waktuTextView.setText(item.getTime());
     }
 
     @Override
@@ -42,17 +49,24 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.DataViewHolder
         return dataList.size();
     }
 
-    public static class DataViewHolder extends RecyclerView.ViewHolder {
-        TextView textNama;
-        TextView textDeskripsi;
-        TextView jamOprasi;
+    public class DataViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        TextView judulTextView;
+        TextView deskripsiTextView;
+        TextView waktuTextView;
 
-        public DataViewHolder(@NonNull View itemView) {
+        public DataViewHolder(View itemView) {
             super(itemView);
-            textNama = itemView.findViewById(R.id.namaWarungTextView);
-            textDeskripsi = itemView.findViewById(R.id.deskripsiTextView);
-            jamOprasi = itemView.findViewById(R.id.jamOperasionalTextView);
-            // Inisialisasi elemen UI lain dari item_data.xml jika ada
+            judulTextView = itemView.findViewById(R.id.namaWarungTextView);
+            deskripsiTextView = itemView.findViewById(R.id.deskripsiTextView);
+            waktuTextView = itemView.findViewById(R.id.jamOperasionalTextView);
+            itemView.setOnClickListener(this); // Set listener untuk item view
+        }
+
+        @Override
+        public void onClick(View view) {
+            if (mListener != null) {
+                mListener.onItemClick(view, getAdapterPosition()); // Panggil listener
+            }
         }
     }
 }

@@ -86,7 +86,7 @@ public class PerofileActivity extends AppCompatActivity {
             tvName.setText(firstName.length() >= 10 ? "fulan" : firstName);
         }
 
-        // Ambil data user dari API jika ID tersedia
+//         Ambil data user dari API jika ID tersedia
         if (id != null && !id.isEmpty()) {
             getUserProfile(id);
         } else {
@@ -99,7 +99,7 @@ public class PerofileActivity extends AppCompatActivity {
         ViewUtils.setImageViewOnClickListener((ImageView) findViewById(R.id.fab_edit), this, EditPerofileActivity.class);
         ViewUtils.setImageViewOnClickListener((ImageView) findViewById(R.id.previous_page), this, Home.class);
 
-        // Tombol keluar (logout)
+//         Tombol keluar
         keluar.setOnClickListener(v -> {
             // Hapus SharedPreferences user_pref
             SharedPreferences userPref = getSharedPreferences(PREF_NAME, MODE_PRIVATE);

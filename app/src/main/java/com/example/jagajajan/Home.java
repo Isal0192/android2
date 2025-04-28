@@ -10,8 +10,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -36,6 +36,7 @@ public class Home extends AppCompatActivity {
     private DataAdapter dataAdapter;
     private List<ItemsContens> dataItemList;
     private RequestQueue requestQueue;
+    private List<WarungData> listWarung; // Simpan data Warung
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,7 @@ public class Home extends AppCompatActivity {
         // Inisialisasi BottomNavigationView
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
-        // Inisialisasi RelativeLayout untuk profil
+        // Inisialisasi ImageView untuk profil
         perofile = findViewById(R.id.profile);
 
         recyclerView = findViewById(R.id.recycler_view_data);
@@ -55,6 +56,13 @@ public class Home extends AppCompatActivity {
 
         dataItemList = new ArrayList<>();
         dataAdapter = new DataAdapter(this, dataItemList);
+        dataAdapter.setOnItemClickListener(new DataAdapter.OnItemClickListener() {  // Set listener
+            @Override
+            public void onItemClick(View view, int position) {
+                // Panggil method untuk pindah ke detail
+                pindahKeDetailWarung(position);
+            }
+        });
         recyclerView.setAdapter(dataAdapter);
 
         // Inisialisasi Volley RequestQueue
@@ -74,13 +82,13 @@ public class Home extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.nav_home:
-                        Toast.makeText(Home.this, "Home clicked", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(Home.this, "Home clicked", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.nav_search:
-                        Toast.makeText(Home.this, "Search clicked", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.nav_profile:
-                        Toast.makeText(Home.this, "Profile clicked", Toast.LENGTH_SHORT).show();
+//                        Intent profileIntent = new Intent(Home.this, PerofileActivity.class);
+//                        startActivity(profileIntent);
                         return true;
                 }
                 return false;
@@ -98,7 +106,7 @@ public class Home extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONArray response) {
                         Log.d("Volley Response", response.toString());
-                        List<WarungData> listWarung = parseJson(response);
+                        listWarung = parseJson(response); // Simpan ke listWarung
                         prosesDataWarung(listWarung);
                     }
                 }, new Response.ErrorListener() {
@@ -139,7 +147,6 @@ public class Home extends AppCompatActivity {
 
     private void prosesDataWarung(List<WarungData> listWarung) {
         List<ItemsContens> itemsUntukCardView = new ArrayList<>();
-        List<WarungData> dataLainUntukDisimpan = new ArrayList<>();
 
         for (WarungData warung : listWarung) {
             String judul = warung.getJenis_warung();
@@ -148,12 +155,9 @@ public class Home extends AppCompatActivity {
 
             ItemsContens itemCard = new ItemsContens(judul, deskripsi, waktuOperasi);
             itemsUntukCardView.add(itemCard);
-
-            dataLainUntukDisimpan.add(warung);
         }
-
+        this.listWarung = listWarung;
         tampilkanDataDiRecyclerView(itemsUntukCardView);
-        simpanDataLain(dataLainUntukDisimpan);
     }
 
     private void tampilkanDataDiRecyclerView(List<ItemsContens> data) {
@@ -162,12 +166,24 @@ public class Home extends AppCompatActivity {
         dataAdapter.notifyDataSetChanged();
     }
 
-    private void simpanDataLain(List<WarungData> dataUntukDisimpan) {
-        SharedPreferences prefs = getSharedPreferences("api_data", MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putInt("jumlah_warung", dataUntukDisimpan.size());
-        editor.apply();
-        Toast.makeText(this, "Berhasil menyimpan " + dataUntukDisimpan.size() + " data warung lainnya", Toast.LENGTH_SHORT).show();
+
+
+    private void pindahKeDetailWarung(int position) {
+        if (listWarung != null && position >= 0 && position < listWarung.size()) {
+            WarungData warung = listWarung.get(position);
+            Intent detailIntent = new Intent(Home.this, DetailWarungActivity.class);
+            detailIntent.putExtra("id", warung.getId());
+            detailIntent.putExtra("jenis_warung", warung.getJenis_warung());
+            detailIntent.putExtra("no_hp", warung.getNo_hp());
+            detailIntent.putExtra("email_bisnis", warung.getEmail_bisnis());
+            detailIntent.putExtra("alamat", warung.getAlamat());
+            detailIntent.putExtra("jam_buka", warung.getJam_buka());
+            detailIntent.putExtra("jam_tutup", warung.getJam_tutup());
+            detailIntent.putExtra("foto_warung_url", warung.getFoto_warung_url());
+            startActivity(detailIntent);
+        } else {
+            Toast.makeText(this, "Warung tidak ditemukan", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

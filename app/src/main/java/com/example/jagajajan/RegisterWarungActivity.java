@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +21,10 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 public class RegisterWarungActivity extends AppCompatActivity {
 
     private ImageView previousPage, imgWarung, cameraIcon;
@@ -30,6 +36,7 @@ public class RegisterWarungActivity extends AppCompatActivity {
     private static final String URL_DAFTAR_WARUNG = ConstantsVariabels.BASE_URL + ConstantsVariabels.ENDPOINT_WARUNG;
     private static final String PREF_NAME = "user_pref";
     private static final String TAG = "RegisterWarungActivity";
+    private String base64Image;
 
 
     @Override
@@ -74,6 +81,14 @@ public class RegisterWarungActivity extends AppCompatActivity {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             imageUri = data.getData();
             imgWarung.setImageURI(imageUri);
+            // Konversi gambar ke Base64
+            try {
+                base64Image = uriToBase64(imageUri);
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(this, "Gagal mengonversi gambar", Toast.LENGTH_SHORT).show();
+                base64Image = null;
+            }
         }
     }
 
@@ -87,7 +102,7 @@ public class RegisterWarungActivity extends AppCompatActivity {
         String jamTutup = ViewUtils.getText(etJamTutup);
 
         if (validateInput(namaWarung, alamatWarung, noTeleponWarung, kategoriWarung, deskripsiWarung, jamBuka, jamTutup)) {
-            daftarWarung(namaWarung, alamatWarung, noTeleponWarung, kategoriWarung, deskripsiWarung, jamBuka, jamTutup, imageUri);
+            daftarWarung(namaWarung, alamatWarung, noTeleponWarung, kategoriWarung, deskripsiWarung, jamBuka, jamTutup, base64Image);
         }
     }
 
@@ -123,7 +138,7 @@ public class RegisterWarungActivity extends AppCompatActivity {
         return true;
     }
 
-    private void daftarWarung(String namaWarung, String alamatWarung, String noTeleponWarung, String kategoriWarung, String deskripsiWarung, String jamBuka, String jamTutup, Uri imageUri) {
+    private void daftarWarung(String namaWarung, String alamatWarung, String noTeleponWarung, String kategoriWarung, String deskripsiWarung, String jamBuka, String jamTutup, String base64Image) {
         // Ambil ID user dari SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
         String idUser = sharedPreferences.getString("id", null);
@@ -139,7 +154,7 @@ public class RegisterWarungActivity extends AppCompatActivity {
             jsonParams.put("alamat", alamatWarung);
             jsonParams.put("jam_buka", "2025-04-26T" + jamBuka + ":00.000Z");
             jsonParams.put("jam_tutup", "2025-04-26T" + jamTutup + ":00.000Z");
-            jsonParams.put("foto_warung", imgWarung);
+            jsonParams.put("foto_warung", base64Image); // Gunakan base64Image
         } catch (JSONException e) {
             e.printStackTrace();
             Toast.makeText(RegisterWarungActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
@@ -159,6 +174,21 @@ public class RegisterWarungActivity extends AppCompatActivity {
                 });
 
         requestQueue.add(jsonObjectRequest);
+    }
+
+    private String uriToBase64(Uri uri) throws IOException {
+        InputStream inputStream = getContentResolver().openInputStream(uri);
+        if (inputStream == null) {
+            throw new IOException("Could not open InputStream");
+        }
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int bytesRead;
+        while ((bytesRead = inputStream.read(buffer)) != -1) {
+            byteArrayOutputStream.write(buffer, 0, bytesRead);
+        }
+        byte[] byteArray = byteArrayOutputStream.toByteArray();
+        return Base64.encodeToString(byteArray, Base64.NO_WRAP);
     }
 }
 

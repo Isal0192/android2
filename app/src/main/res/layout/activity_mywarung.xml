@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <!-- Gambar Warung dengan Icon -->
+    <FrameLayout
+        android:id="@+id/headerImagedw"
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+
+        <!-- Gambar utama -->
+        <ImageView
+            android:id="@+id/imgWarungdw"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/gambar_logo" />
+
+        <!-- Ikon overlay -->
+        <ImageView
+            android:id="@+id/back_detail_warungdw"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_margin="8dp"
+            android:layout_gravity="top|start"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            android:tint="@color/black"
+            android:contentDescription="Ikon" />
+
+        <ImageView
+            android:id="@+id/share_detail_warungdw"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_margin="8dp"
+            android:layout_gravity="top|end"
+            android:src="@drawable/share"
+            android:tint="@color/black"
+            android:contentDescription="Ikon" />
+
+
+
+    </FrameLayout>
+
+    <!-- Card Deskripsi -->
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/cardDetaildw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/headerImagedw"
+        android:layout_margin="12dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp">
+
+        <LinearLayout
+            android:id="@+id/detail_mywarung"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:clipToPadding="false"
+            android:padding="16dp">
+
+            <!-- Nama Warung -->
+            <TextView
+                android:id="@+id/tvNamaWarungdw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Warung bu Intan"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#000000" />
+
+            <!-- Jam buka -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="4dp">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginEnd="4dp"
+                    android:src="" />
+
+                <TextView
+                    android:id="@+id/layout_jam_operasionaldw"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="07:00 - 18:00"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <!-- Lokasi -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="4dp">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginEnd="4dp"
+                    android:src="@drawable/ic_location" />
+
+                <TextView
+                    android:id="@+id/address_valuedw"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ciantra, Jln.A"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <!-- Link Maps -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="4dp">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginEnd="4dp"
+                    android:src="" />
+
+                <TextView
+                    android:id="@+id/tvMapsLinkdw"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="https://maps.app.goo.gl/SRR1PY9..."
+                    android:textColor="#2196F3"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <!-- Garis separator -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="12dp"
+                android:background="#DDDDDD" />
+
+
+
+
+        </LinearLayout>
+    </android.support.design.widget.TextInputLayout>
+
+
+
+    <!-- Tombol bawah -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:background="#EEEEEE">
+
+        <Button
+            android:id="@+id/btnAjukandw"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Ajukan Penitipan"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#009688" />
+
+        <ImageButton
+            android:id="@+id/btnChatdw"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/annatation_typing"
+            android:background="@android:color/transparent"
+            android:contentDescription="Chat"
+            android:padding="12dp" />
+    </LinearLayout>
+
+</RelativeLayout>

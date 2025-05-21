@@ -10,5 +10,6 @@
     <color name="colorPrimary">#6200ee</color>
     <color name="warna_item">#1D212D</color>
     <color name="warna_ijo">#0BAB7C</color>
+    <color name="warna_abu">#808080</color>
 
 </resources>

@@ -33,7 +33,7 @@ public class StartedActivity extends AppCompatActivity {
         // Jika belum login, tampilkan tombol dan izinkan user memilih
         skip.setOnClickListener(v -> {
             // Langsung ke halaman Login
-            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            Intent intent = new Intent(getApplicationContext(), Home.class);
             startActivity(intent);
             finish();
         });

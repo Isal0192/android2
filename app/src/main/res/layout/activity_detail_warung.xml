@@ -1,77 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetailWarungActivity">
+    android:background="#C3C2C2">
 
-    <LinearLayout
+    <!-- Top Bar -->
+    <RelativeLayout
+        android:id="@+id/top_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:padding="16dp">
 
-        <TextView
-            android:id="@+id/tv_nama_warung"
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/previous_pagews"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/black"
-            android:layout_marginBottom="8dp"
-            tools:text="Nama Warung" />
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            android:tint="@color/black"
+            android:layout_alignParentLeft="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/previous_pagews"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="Warung saya"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
 
         <ImageView
-            android:id="@+id/iv_foto_warung"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:scaleType="centerCrop"
-            android:layout_marginBottom="16dp" />
+            android:id="@+id/notificationws"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/notification"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="Ikon"
+            android:tint="@color/black" />
+    </RelativeLayout>
+
+    <!-- Foto Profil -->
+    <ImageView
+        android:id="@+id/img_profile"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_below="@id/top_bar"
+        android:src="@drawable/gambar_logo"
+        android:scaleType="centerCrop" />
+
+    <!-- Judul Warung -->
+    <TextView
+        android:id="@+id/tv_nama_warung"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/img_profile"
+        android:background="@color/white"
+        android:padding="16dp"
+        android:text="Warung bu Intan"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#000000" />
+
+    <!-- Kartu Deskripsi Produk -->
+    <LinearLayout
+        android:id="@+id/card_produk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_nama_warung"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_marginTop="10dp">
 
         <TextView
-            android:id="@+id/tv_alamat_warung"
-            android:layout_width="match_parent"
+            android:id="@+id/tvLabelProduk"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textColor="@android:color/black"
-            android:layout_marginBottom="8dp"
-            tools:text="Alamat Warung" />
+            android:text="Produk"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#000000" />
 
         <TextView
-            android:id="@+id/tv_no_hp"
-            android:layout_width="match_parent"
+            android:id="@+id/tvDaftarProduk"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textColor="@android:color/black"
-            android:layout_marginBottom="8dp"
-            tools:text="No. HP: 081234567890" />
+            android:layout_marginTop="4dp"
+            android:text="daftar produk"
+            android:textSize="14sp"
+            android:textColor="#000000" />
 
         <TextView
-            android:id="@+id/tv_email"
-            android:layout_width="match_parent"
+            android:id="@+id/tvJumlahProduk"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textColor="@android:color/black"
-            android:layout_marginBottom="8dp"
-            tools:text="Email: warung@example.com" />
-
-        <TextView
-            android:id="@+id/tv_jam_buka"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textColor="@android:color/black"
-            android:layout_marginBottom="8dp"
-            tools:text="Jam Buka: 08:00" />
-
-        <TextView
-            android:id="@+id/tv_jam_tutup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textColor="@android:color/black"
-            tools:text="Jam Tutup: 20:00" />
-
+            android:layout_marginTop="4dp"
+            android:text="0 produk"
+            android:textSize="14sp"
+            android:textColor="#555555" />
     </LinearLayout>
-</ScrollView>
+
+    <FrameLayout
+        android:id="@+id/btnChat"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="16dp"
+        android:background="@drawable/circle_bg">
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center"
+            android:src="@drawable/message_square_typing"
+            android:contentDescription="Chat" />
+    </FrameLayout>
+
+</RelativeLayout>

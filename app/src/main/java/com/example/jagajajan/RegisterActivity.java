@@ -66,7 +66,7 @@ public class RegisterActivity extends AppCompatActivity {
                             jsonBody,
                             response -> {
                                 Toast.makeText(getApplicationContext(), "Registrasi berhasil", Toast.LENGTH_SHORT).show();
-                                startActivity   (new Intent(getApplicationContext(), LoginActivity.class));
+                                startActivity   (new Intent(getApplicationContext(), Home.class));
                                 finish();
                             },
                             error -> {
@@ -89,7 +89,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
         // Ketika teks login diklik
-        ViewUtils.setTextViewOnClickListener((TextView) findViewById(R.id.login), this, LoginActivity.class);
+        ViewUtils.setTextViewOnClickListener((TextView) findViewById(R.id.login), this, Home.class);
     }
 
     // Validasi input

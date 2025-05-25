@@ -7,8 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-public class StartedActivity extends AppCompatActivity {
-    Button btnContinue, skip;
+public class GetStartedActivity extends AppCompatActivity {
+    Button Lanjut, Lewati;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,8 +16,8 @@ public class StartedActivity extends AppCompatActivity {
         setContentView(R.layout.activity_started);
         hideSystemUI();
 
-        btnContinue = findViewById(R.id.btn_continue);
-        skip = findViewById(R.id.skip);
+        Lanjut = findViewById(R.id.lanjutkan);
+        Lewati = findViewById(R.id.lewati);
 
         // Cek apakah sudah login atau belum
         SharedPreferences sharedPreferences = getSharedPreferences("user_pref", MODE_PRIVATE);
@@ -31,16 +31,16 @@ public class StartedActivity extends AppCompatActivity {
         }
 
         // Jika belum login, tampilkan tombol dan izinkan user memilih
-        skip.setOnClickListener(v -> {
+        Lewati.setOnClickListener(v -> {
             // Langsung ke halaman Login
-            Intent intent = new Intent(getApplicationContext(), Home.class);
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(intent);
             finish();
         });
 
-        btnContinue.setOnClickListener(v -> {
+        Lanjut.setOnClickListener(v -> {
             // Lanjut ke onboarding/main info
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            Intent intent = new Intent(getApplicationContext(), GetStartedInfoActivity.class);
             startActivity(intent);
         });
     }

@@ -116,9 +116,9 @@
 
         <EditText
             android:id="@+id/Pesan_chat"
-            android:layout_width="0dp"
+            android:layout_width="1dp"
             android:layout_height="40dp"
-            android:layout_weight="4d"
+            android:layout_weight="4.0"
             android:hint="pesan..."
             android:textStyle="bold"
             android:layout_gravity="right"

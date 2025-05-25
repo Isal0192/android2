@@ -74,7 +74,7 @@ public class PerofileActivity extends AppCompatActivity {
             getSharedPreferences(PREF_USER, MODE_PRIVATE).edit().clear().apply();
             getSharedPreferences(PREF_PROFILE, MODE_PRIVATE).edit().clear().apply();
             Toast.makeText(this, "Berhasil keluar.", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(PerofileActivity.this, Home.class));
+            startActivity(new Intent(PerofileActivity.this, LoginActivity.class));
             finishAffinity();
         });
     }
@@ -118,6 +118,8 @@ public class PerofileActivity extends AppCompatActivity {
         }
     }
 
+
+    //    mengambil perofile
     private void getUserProfile(final String id) {
         if (!isNetworkAvailable()) {
             Toast.makeText(this, "Tidak ada koneksi internet.", Toast.LENGTH_SHORT).show();

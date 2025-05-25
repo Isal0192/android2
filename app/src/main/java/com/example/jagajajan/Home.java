@@ -36,7 +36,7 @@ public class Home extends AppCompatActivity {
     private DataAdapter dataAdapter;
     private List<ItemsContens> dataItemList;
     private RequestQueue requestQueue;
-    private List<WarungData> listWarung; // Simpan data Warung
+    private List<WarungData> listWarung;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +44,7 @@ public class Home extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         ConstantsVariabels.hideSystemUI(getWindow());
 
-        // Inisialisasi BottomNavigationView
         bottomNavigationView = findViewById(R.id.bottom_navigation);
-
-        // Inisialisasi ImageView untuk profil
         perofile = findViewById(R.id.profile);
 
         recyclerView = findViewById(R.id.recycler_view_data);
@@ -56,16 +53,14 @@ public class Home extends AppCompatActivity {
 
         dataItemList = new ArrayList<>();
         dataAdapter = new DataAdapter(this, dataItemList);
-        dataAdapter.setOnItemClickListener(new DataAdapter.OnItemClickListener() {  // Set listener
+        dataAdapter.setOnItemClickListener(new DataAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                // Panggil method untuk pindah ke detail
                 pindahKeDetailWarung(position);
             }
         });
         recyclerView.setAdapter(dataAdapter);
 
-        // Inisialisasi Volley RequestQueue
         requestQueue = Volley.newRequestQueue(this);
 
         SharedPreferences sharedPreferences = getSharedPreferences("user_pref", MODE_PRIVATE);
@@ -82,13 +77,10 @@ public class Home extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.nav_home:
-//                        Toast.makeText(Home.this, "Home clicked", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.nav_search:
                         return true;
                     case R.id.nav_profile:
-//                        Intent profileIntent = new Intent(Home.this, PerofileActivity.class);
-//                        startActivity(profileIntent);
                         return true;
                 }
                 return false;
@@ -106,7 +98,7 @@ public class Home extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONArray response) {
                         Log.d("Volley Response", response.toString());
-                        listWarung = parseJson(response); // Simpan ke listWarung
+                        listWarung = parseJson(response);
                         prosesDataWarung(listWarung);
                     }
                 }, new Response.ErrorListener() {
@@ -126,15 +118,15 @@ public class Home extends AppCompatActivity {
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 WarungData warung = new WarungData();
-                warung.setId(jsonObject.getInt("id"));
-                warung.setId_user(jsonObject.getInt("id_user"));
-                warung.setJenis_warung(jsonObject.getString("jenis_warung"));
-                warung.setNo_hp(jsonObject.getString("no_hp"));
-                warung.setEmail_bisnis(jsonObject.getString("email_bisnis"));
+                warung.setId_warung(jsonObject.getInt("id_warung"));
+                warung.setId_pemilik(jsonObject.getInt("id_pemilik"));
+                warung.setNama_warung(jsonObject.getString("nama_warung"));
+                warung.setFoto_warung_url(jsonObject.getString("foto_warung"));
                 warung.setAlamat(jsonObject.getString("alamat"));
+                warung.setJenis_warung(jsonObject.getString("jenis_warung"));
+                warung.setNo_bisnis(jsonObject.getString("no_bisnis"));
                 warung.setJam_buka(jsonObject.getString("jam_buka"));
                 warung.setJam_tutup(jsonObject.getString("jam_tutup"));
-                warung.setFoto_warung_url(jsonObject.getString("foto_warung_url"));
                 listWarung.add(warung);
             }
         } catch (JSONException e) {
@@ -151,7 +143,7 @@ public class Home extends AppCompatActivity {
         for (WarungData warung : listWarung) {
             String judul = warung.getJenis_warung();
             String deskripsi = warung.getAlamat();
-            String waktuOperasi = warung.getJam_buka().substring(11, 16) + " - " + warung.getJam_tutup().substring(11, 16);
+            String waktuOperasi = warung.getJam_buka()+ " - " + warung.getJam_tutup();
 
             ItemsContens itemCard = new ItemsContens(judul, deskripsi, waktuOperasi);
             itemsUntukCardView.add(itemCard);
@@ -166,21 +158,23 @@ public class Home extends AppCompatActivity {
         dataAdapter.notifyDataSetChanged();
     }
 
-
-
     private void pindahKeDetailWarung(int position) {
         if (listWarung != null && position >= 0 && position < listWarung.size()) {
             WarungData warung = listWarung.get(position);
             Intent detailIntent = new Intent(Home.this, DetailWarungActivity.class);
-            detailIntent.putExtra("id", warung.getId());
-            detailIntent.putExtra("jenis_warung", warung.getJenis_warung());
-            detailIntent.putExtra("no_hp", warung.getNo_hp());
-            detailIntent.putExtra("email_bisnis", warung.getEmail_bisnis());
+
+            detailIntent.putExtra("id_warung", warung.getId_warung());
+            detailIntent.putExtra("id_pemilik", warung.getId_pemilik());
+            detailIntent.putExtra("nama_warung", warung.getNama_warung());
+            detailIntent.putExtra("foto_warung", warung.getFoto_warung_url());
             detailIntent.putExtra("alamat", warung.getAlamat());
+            detailIntent.putExtra("jenis_warung", warung.getJenis_warung());
+            detailIntent.putExtra("no_bisnis", warung.getNo_bisnis());
             detailIntent.putExtra("jam_buka", warung.getJam_buka());
             detailIntent.putExtra("jam_tutup", warung.getJam_tutup());
-            detailIntent.putExtra("foto_warung_url", warung.getFoto_warung_url());
+
             startActivity(detailIntent);
+
         } else {
             Toast.makeText(this, "Warung tidak ditemukan", Toast.LENGTH_SHORT).show();
         }
@@ -206,4 +200,3 @@ public class Home extends AppCompatActivity {
         ConstantsVariabels.hideSystemUI(getWindow());
     }
 }
-

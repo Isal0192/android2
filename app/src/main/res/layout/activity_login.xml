@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="72dp"
+        android:layout_marginLeft="72dp"
+        android:layout_marginTop="83dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout1">
+
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="338dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btnstyle2"
+            android:hint="username"
+            tools:ignore="TouchTargetSizeCheck"
+            android:autofillHints="username" />
+
+        <LinearLayout
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="290dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:autofillHints="@string/sigIn_password"
+                android:background="@drawable/btnstyle2"
+                android:hint="passsword"
+                android:inputType="textPassword"
+                tools:ignore="TouchTargetSizeCheck" />
+            <ImageView
+                android:id="@+id/eyeIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_eye_close"
+                android:padding="10dp"
+                android:background="@drawable/btnstyle2"
+                android:layout_marginLeft="13dp"
+                android:layout_gravity="left"
+                android:contentDescription="Toggle Password Visibility" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/forget_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="forget your password"
+            android:layout_gravity="left"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="30dp"
+            android:textSize="16dp"
+            android:textColor="@color/black"
+            android:textStyle="italic"
+            />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="70dp"/>
+
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="225dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="7dp"
+            android:background="@drawable/btnstyle1"
+            android:text="@string/submit"
+            android:textColor="@color/white" />
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="10dp"/>
+        <TextView
+            android:id="@+id/sigin"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:height="29dp"
+            android:text="@string/sigIn_text2b"
+            android:textColor="@color/black"
+            android:textSize="16dp" />
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

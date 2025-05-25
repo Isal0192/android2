@@ -54,7 +54,7 @@ public class RegisterActivity extends AppCompatActivity {
             if (validateInputs()) {
                 try {
                     JSONObject jsonBody = new JSONObject();
-                    jsonBody.put("full_name", full_name.getText().toString());
+                    jsonBody.put("nama_lengkap", full_name.getText().toString());
                     jsonBody.put("username", username.getText().toString());
                     jsonBody.put("no_hp", number.getText().toString());
                     jsonBody.put("email", email.getText().toString());
@@ -66,7 +66,7 @@ public class RegisterActivity extends AppCompatActivity {
                             jsonBody,
                             response -> {
                                 Toast.makeText(getApplicationContext(), "Registrasi berhasil", Toast.LENGTH_SHORT).show();
-                                startActivity   (new Intent(getApplicationContext(), Home.class));
+                                startActivity   (new Intent(getApplicationContext(), LoginActivity.class));
                                 finish();
                             },
                             error -> {
@@ -89,7 +89,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
         // Ketika teks login diklik
-        ViewUtils.setTextViewOnClickListener((TextView) findViewById(R.id.login), this, Home.class);
+        ViewUtils.setTextViewOnClickListener((TextView) findViewById(R.id.login), this, LoginActivity.class);
     }
 
     // Validasi input

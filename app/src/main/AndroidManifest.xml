@@ -18,6 +18,13 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".LoginActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".MywarungActivity"
             android:exported="false">
             <meta-data
@@ -88,7 +95,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".StartedActivity"
+            android:name=".GetStartedActivity"
             android:exported="true">
 
             <!-- Tambahkan intent-filter berikut -->
@@ -110,7 +117,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".GetStartedInfoActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

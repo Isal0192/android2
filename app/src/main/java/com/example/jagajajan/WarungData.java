@@ -1,33 +1,53 @@
 package com.example.jagajajan;
 
 public class WarungData {
-    private int id;
-    private int id_user;
-    private String jenis_warung;
-    private String no_hp;
-    private String email_bisnis;
+    private String id_warung;
+    private String id_pemilik;
+    private String nama_warung;
+    private String foto_warung_url;
     private String alamat;
+    private String jenis_warung;
+    private String no_bisnis;
     private String jam_buka;
     private String jam_tutup;
-    private String foto_warung_url;
 
     public WarungData() {
     }
 
-    public int getId() {
-        return id;
+    public String getId_warung() {
+        return id_warung;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId_warung(String id_warung) {
+        this.id_warung = id_warung;
     }
 
-    public int getId_user() {
-        return id_user;
+    public String getId_pemilik() {return id_pemilik;}
+
+    public void setId_pemilik(String id_pemilik) {this.id_pemilik = id_pemilik;}
+
+    public String getNama_warung() {
+        return nama_warung;
     }
 
-    public void setId_user(int id_user) {
-        this.id_user = id_user;
+    public void setNama_warung(String nama_warung) {
+        this.nama_warung = nama_warung;
+    }
+
+    public String getFoto_warung_url() {
+        return foto_warung_url;
+    }
+
+    public void setFoto_warung_url(String foto_warung_url) {
+        this.foto_warung_url = foto_warung_url;
+    }
+
+    public String getAlamat() {
+        return alamat;
+    }
+
+    public void setAlamat(String alamat) {
+        this.alamat = alamat;
     }
 
     public String getJenis_warung() {
@@ -38,28 +58,12 @@ public class WarungData {
         this.jenis_warung = jenis_warung;
     }
 
-    public String getNo_hp() {
-        return no_hp;
+    public String getNo_bisnis() {
+        return no_bisnis;
     }
 
-    public void setNo_hp(String no_hp) {
-        this.no_hp = no_hp;
-    }
-
-    public String getEmail_bisnis() {
-        return email_bisnis;
-    }
-
-    public void setEmail_bisnis(String email_bisnis) {
-        this.email_bisnis = email_bisnis;
-    }
-
-    public String getAlamat() {
-        return alamat;
-    }
-
-    public void setAlamat(String alamat) {
-        this.alamat = alamat;
+    public void setNo_bisnis(String no_bisnis) {
+        this.no_bisnis = no_bisnis;
     }
 
     public String getJam_buka() {
@@ -76,13 +80,5 @@ public class WarungData {
 
     public void setJam_tutup(String jam_tutup) {
         this.jam_tutup = jam_tutup;
-    }
-
-    public String getFoto_warung_url() {
-        return foto_warung_url;
-    }
-
-    public void setFoto_warung_url(String foto_warung_url) {
-        this.foto_warung_url = foto_warung_url;
     }
 }

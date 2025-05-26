@@ -3,11 +3,15 @@ package com.example.jagajajan; // Menggunakan package utils yang lebih sesuai
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.support.v7.widget.CardView;
 
@@ -114,6 +118,8 @@ public class ViewUtils {
         }
     }
 
+
+
     /**
      * Metode untuk mengatur onClickListener untuk CardView.
      *
@@ -149,6 +155,35 @@ public class ViewUtils {
             return "";
         }
     }
+
+    public static void setFrame(FrameLayout frameLayout, Context context, Class<?> destinationActivity, Bundle extras) {
+        if (frameLayout != null) {
+            frameLayout.setOnClickListener(view -> {
+                Intent intent = new Intent(context, destinationActivity);
+                if (extras != null) {
+                    intent.putExtras(extras); // kirim semua data dalam Bundle
+                }
+                context.startActivity(intent);
+            });
+        } else {
+            Log.e("UTILS", "FrameLayout is null");
+        }
+    }
+
+    public static void setButton(ImageButton Button, Context context, Class<?> destinationActivity, Bundle extras) {
+        if (Button != null) {
+            Button.setOnClickListener(view -> {
+                Intent intent = new Intent(context, destinationActivity);
+                if (extras != null) {
+                    intent.putExtras(extras); // kirim semua data dalam Bundle
+                }
+                context.startActivity(intent);
+            });
+        } else {
+            Log.e("UTILS", "FrameLayout is null");
+        }
+    }
+
 
     /**
      * Metode untuk mengatur teks pada TextView.

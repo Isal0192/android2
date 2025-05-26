@@ -118,8 +118,8 @@ public class Home extends AppCompatActivity {
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 WarungData warung = new WarungData();
-                warung.setId_warung(jsonObject.getInt("id_warung"));
-                warung.setId_pemilik(jsonObject.getInt("id_pemilik"));
+                warung.setId_warung(jsonObject.getString("id_warung"));
+                warung.setId_pemilik(jsonObject.getString("id_pemilik"));
                 warung.setNama_warung(jsonObject.getString("nama_warung"));
                 warung.setFoto_warung_url(jsonObject.getString("foto_warung"));
                 warung.setAlamat(jsonObject.getString("alamat"));
@@ -173,6 +173,7 @@ public class Home extends AppCompatActivity {
             detailIntent.putExtra("jam_buka", warung.getJam_buka());
             detailIntent.putExtra("jam_tutup", warung.getJam_tutup());
 
+            Log.d("INTENT_DATA", "ID Pemilik: " + warung.getId_pemilik());
             startActivity(detailIntent);
 
         } else {

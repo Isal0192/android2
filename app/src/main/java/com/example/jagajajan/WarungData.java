@@ -1,8 +1,8 @@
 package com.example.jagajajan;
 
 public class WarungData {
-    private int id_warung;
-    private int id_pemilik;
+    private String id_warung;
+    private String id_pemilik;
     private String nama_warung;
     private String foto_warung_url;
     private String alamat;
@@ -14,21 +14,17 @@ public class WarungData {
     public WarungData() {
     }
 
-    public int getId_warung() {
+    public String getId_warung() {
         return id_warung;
     }
 
-    public void setId_warung(int id_warung) {
+    public void setId_warung(String id_warung) {
         this.id_warung = id_warung;
     }
 
-    public int getId_pemilik() {
-        return id_pemilik;
-    }
+    public String getId_pemilik() {return id_pemilik;}
 
-    public void setId_pemilik(int id_pemilik) {
-        this.id_pemilik = id_pemilik;
-    }
+    public void setId_pemilik(String id_pemilik) {this.id_pemilik = id_pemilik;}
 
     public String getNama_warung() {
         return nama_warung;

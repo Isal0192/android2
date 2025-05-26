@@ -28,19 +28,10 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="16dp"
             android:fontFamily="sans-serif-medium"
-            android:text="Warung saya"
+            android:text="Info Warung"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
-        <ImageView
-            android:id="@+id/notificationws"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/notification"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:contentDescription="Ikon"
-            android:tint="@color/black" />
     </RelativeLayout>
 
     <!-- Foto Profil -->
@@ -78,95 +69,202 @@
         android:padding="16dp"
         android:layout_marginTop="10dp">
 
-        <TextView
-            android:id="@+id/tvLabelProduk"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Produk"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="#000000" />
+            android:orientation="horizontal"
+            android:layout_marginTop="4dp">
 
-        <TextView
-            android:id="@+id/tvDaftarProduk"
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginEnd="4dp"
+                android:src="@drawable/ic_time" />
+
+            <TextView
+                android:id="@+id/tv_jam_oprasi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="07:00 - 18:00"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <!-- Lokasi -->
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="daftar produk"
-            android:textSize="14sp"
-            android:textColor="#000000" />
+            android:orientation="horizontal"
+            android:layout_marginTop="4dp">
 
-        <TextView
-            android:id="@+id/tvJumlahProduk"
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginEnd="4dp"
+                android:src="@drawable/ic_location" />
+
+            <TextView
+                android:id="@+id/tv_alamat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ciantra, Jln.A"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <!-- Link Maps -->
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="0 produk"
-            android:textSize="14sp"
-            android:textColor="#555555"
-            android:layout_marginBottom="2dp"/>
+            android:orientation="horizontal"
+            android:layout_marginTop="4dp">
 
-        <TextView
-            android:id="@+id/tv_alamat_warung"
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginEnd="4dp"
+                android:src="@drawable/ic_map" />
+
+            <TextView
+                android:id="@+id/tvMapsLinkdw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="https://maps.app.goo.gl/SRR1PY9..."
+                android:textColor="#2196F3"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+<!--        nampilin detail informasi warung    -->
+        <LinearLayout
+            android:id="@+id/detail_informasi_warung"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textColor="@android:color/black"
-            android:layout_marginBottom="8dp"
-            android:text="Alamat Warung" />
-
-        <TextView
-            android:id="@+id/tv_no_hp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textColor="@android:color/black"
-            android:layout_marginBottom="8dp"
-            android:text="No. HP: 081234567890" />
-
-        <TextView
-            android:id="@+id/tv_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textColor="@android:color/black"
-            android:layout_marginBottom="8dp"
-            android:text="Email: warung@example.com" />
-
-        <TextView
-            android:id="@+id/tv_jam_buka"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textColor="@android:color/black"
-            android:layout_marginBottom="8dp"
-            android:text="Jam Buka: 08:00" />
-
-        <TextView
-            android:id="@+id/tv_jam_tutup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textColor="@android:color/black"
-            android:text="Jam Tutup: 20:00" />
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginTop="7dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="tampilkan detail informasi lain" />
+            <ImageView
+                android:id="@+id/arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_arrow_down"
+                android:scaleX="1"/>
+        </LinearLayout>
     </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/btnChat"
-        android:layout_width="60dp"
+    <LinearLayout
+        android:id="@+id/card_produk2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_below="@id/card_produk"
+        android:layout_marginTop="7dp"
+        android:padding="16dp"
+        android:visibility="invisible">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="5dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Detail informasi warung"
+                android:textSize="16dp"
+                android:textColor="@color/black"
+                />
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/bottom_action_bar"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/jenis_warung"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="3dp"
+                    android:text="Alamat Warung"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_alamat_warung"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="3dp"
+                    android:text="Alamat Warung"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_no_hp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="3dp"
+                    android:text="No. HP: 081234567890"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="3dp"
+                    android:text="Email: warung@example.com"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_jam_buka"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="3dp"
+                    android:text="Jam Buka: 08:00"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_jam_tutup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Jam Tutup: 20:00"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="16dp"
-        android:background="@drawable/circle_bg">
+        android:orientation="horizontal"
+        android:background="#EEEEEE">
 
-        <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_gravity="center"
-            android:src="@drawable/message_square_typing"
-            android:contentDescription="Chat" />
-    </FrameLayout>
+        <Button
+            android:id="@+id/btn_ajukan_penitipan"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Ajukan Penitipan"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#009688" />
+
+        <ImageButton
+            android:id="@+id/btn_chat"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/annatation_typing"
+            android:background="@android:color/transparent"
+            android:contentDescription="Chat"
+            android:padding="12dp" />
+    </LinearLayout>
 
 
 </RelativeLayout>

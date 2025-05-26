@@ -13,10 +13,10 @@ public class ConstantsVariabels {
     public static final String ENDPOINT_LOGIN = "/auth/login";
     public static final String ENDPPOINT_REGISTER = "/auth/register";
     //    auth/user
-    public static final String ENDPOINT_USER = "/auth/user/";//get put
+    public static final String ENDPOINT_USER = "/auth/user/";//GET/:id PUT:id
 
     //    /warung
-    public static final String ENPOINT_WARUNG = "/warung";//GET
+    public static final String ENPOINT_WARUNG = "/warung";//GET. pake header id (PUT/:id)
     public static final String ENDPOINT_WARUNG_REGISTER= "/warung/register";//POST
 
 

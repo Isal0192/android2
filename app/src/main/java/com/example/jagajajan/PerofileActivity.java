@@ -87,7 +87,7 @@ public class PerofileActivity extends AppCompatActivity {
 
         SharedPreferences userPref = getSharedPreferences(PREF_USER, MODE_PRIVATE);
         String id = userPref.getString("id", null);
-        if (id != null && !id.isEmpty()) {
+        if (id !=    null && !id.isEmpty()) {
             getUserProfile(id);
         } else {
             Toast.makeText(this, "Token tidak ditemukan, silakan login kembali.", Toast.LENGTH_SHORT).show();

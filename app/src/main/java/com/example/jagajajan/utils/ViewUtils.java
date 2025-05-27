@@ -1,4 +1,4 @@
-package com.example.jagajajan; // Menggunakan package utils yang lebih sesuai
+package com.example.jagajajan.utils; // Menggunakan package utils yang lebih sesuai
 
 import android.app.Activity;
 import android.content.Context;

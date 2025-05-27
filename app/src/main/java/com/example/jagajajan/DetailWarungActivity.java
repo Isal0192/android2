@@ -1,13 +1,10 @@
 package com.example.jagajajan;
 
 import android.content.Intent;
-import android.net.Uri;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity; // Reverted to android.support.v7.app.AppCompatActivity
 import android.view.View;
-import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -16,33 +13,45 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.jagajajan.utils.ViewUtils; // Assuming this utility class exists
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.math.BigDecimal;
-
 public class DetailWarungActivity extends AppCompatActivity {
 
+    // TextViews for displaying warung details
     TextView namaWarung, alamat, no_hp, email, jam_buka, jam_tutup, tvAlamat, tvJamOprasi, jenisWarung;
+    // Buttons and Layouts
     ImageButton btnChat;
     ImageView btnBack, arrow;
     LinearLayout detailInfo, detailPeroduk;
+    // Volley RequestQueue for network operations
     private RequestQueue requestQueue;
+
+    // Constants for SharedPreferences keys
+    private static final String PREFS_NAME = "WarungDetailPrefs";
+    private static final String KEY_ID_PEMILIK = "id_pemilik";
+    private static final String KEY_NAMA_WARUNG = "nama_warung";
+    private static final String KEY_JENIS_WARUNG = "jenis_warung";
+    private static final String KEY_ALAMAT = "alamat";
+    private static final String KEY_JAM_BUKA = "jam_buka";
+    private static final String KEY_JAM_TUTUP = "jam_tutup";
+    private static final String KEY_NO_HP = "no_hp";
+    private static final String KEY_EMAIL = "email";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_warung);
+
+        // Initialize Volley RequestQueue
         requestQueue = Volley.newRequestQueue(this);
 
-        // Inisialisasi TextView dari layout
+        // Initialize TextViews from layout
         namaWarung = findViewById(R.id.tv_nama_warung);
         alamat = findViewById(R.id.tv_alamat_warung);
         no_hp = findViewById(R.id.tv_no_hp);
@@ -51,53 +60,107 @@ public class DetailWarungActivity extends AppCompatActivity {
         jam_tutup = findViewById(R.id.tv_jam_tutup);
         tvAlamat = findViewById(R.id.tv_alamat);
         tvJamOprasi = findViewById(R.id.tv_jam_oprasi);
+        jenisWarung = findViewById(R.id.jenis_warung);
 
-
+        // Initialize Buttons and Layouts
         btnChat = findViewById(R.id.btn_chat);
-        btnBack =findViewById(R.id.btn_back);
+        btnBack = findViewById(R.id.btn_back);
         detailInfo = findViewById(R.id.detail_informasi_warung);
         detailPeroduk = findViewById(R.id.card_produk2);
         arrow = findViewById(R.id.arrow);
-        jenisWarung = findViewById(R.id.jenis_warung);
 
+        // Set OnClickListener for detailInfo LinearLayout to toggle visibility of detailPeroduk
         detailInfo.setOnClickListener(view -> {
             if (detailPeroduk.getVisibility() == View.GONE) {
                 detailPeroduk.setVisibility(View.VISIBLE);
-                arrow.setImageResource(R.drawable.ic_arrow_up);
-
+                arrow.setImageResource(R.drawable.ic_arrow_up); // Change arrow to up
             } else {
                 detailPeroduk.setVisibility(View.GONE);
-                arrow.setImageResource(R.drawable.ic_arrow_down);
+                arrow.setImageResource(R.drawable.ic_arrow_down); // Change arrow to down
             }
         });
 
-
+        // Set OnClickListener for back button to navigate to Home activity
         ViewUtils.setImageViewOnClickListener(btnBack, this, Home.class);
 
+        // Get SharedPreferences instance
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
 
-        // Ambil data dari Intent
+        // Retrieve data from Intent
         Intent intent = getIntent();
-        String idPemilik = getIntent().getStringExtra("id_pemilik");
-        if (idPemilik != null) {
-            CallData(idPemilik);
+        String idPemilikFromIntent = intent.getStringExtra("id_pemilik");
+        String namaWarungFromIntent = intent.getStringExtra("nama_warung");
+        String jenisWarungFromIntent = intent.getStringExtra("jenis_warung");
+        String alamatFromIntent = intent.getStringExtra("alamat");
+        String jamBukaFromIntent = intent.getStringExtra("jam_buka");
+        String jamTutupFromIntent = intent.getStringExtra("jam_tutup");
+
+        String currentIdPemilik;
+
+        // Check if data is available from Intent
+        if (idPemilikFromIntent != null) {
+            // Data from Intent is primary, save it to SharedPreferences
+            currentIdPemilik = idPemilikFromIntent;
+            editor.putString(KEY_ID_PEMILIK, idPemilikFromIntent);
+            editor.putString(KEY_NAMA_WARUNG, namaWarungFromIntent);
+            editor.putString(KEY_JENIS_WARUNG, jenisWarungFromIntent);
+            editor.putString(KEY_ALAMAT, alamatFromIntent);
+            editor.putString(KEY_JAM_BUKA, jamBukaFromIntent);
+            editor.putString(KEY_JAM_TUTUP, jamTutupFromIntent);
+            editor.apply(); // Apply changes asynchronously
+
+            // Set TextViews with data from Intent
+            namaWarung.setText(namaWarungFromIntent);
+            jenisWarung.setText(jenisWarungFromIntent);
+            alamat.setText("alamat: " + alamatFromIntent);
+            tvAlamat.setText(alamatFromIntent);
+            jam_buka.setText("Buka:   " + jamBukaFromIntent);
+            jam_tutup.setText("Tutup:   " + jamTutupFromIntent);
+            tvJamOprasi.setText(jamBukaFromIntent + " - " + jamTutupFromIntent);
+
         } else {
-            Toast.makeText(this, "kembali ke home dan masuk lagi", Toast.LENGTH_SHORT).show();
+            // No data from Intent, try to load from SharedPreferences
+            currentIdPemilik = prefs.getString(KEY_ID_PEMILIK, null);
+            if (currentIdPemilik != null) {
+                // Load and set TextViews with data from SharedPreferences
+                namaWarung.setText(prefs.getString(KEY_NAMA_WARUNG, ""));
+                jenisWarung.setText(prefs.getString(KEY_JENIS_WARUNG, ""));
+                alamat.setText("alamat: " + prefs.getString(KEY_ALAMAT, ""));
+                tvAlamat.setText(prefs.getString(KEY_ALAMAT, ""));
+                jam_buka.setText("Buka:   " + prefs.getString(KEY_JAM_BUKA, ""));
+                jam_tutup.setText("Tutup:   " + prefs.getString(KEY_JAM_TUTUP, ""));
+                tvJamOprasi.setText(prefs.getString(KEY_JAM_BUKA, "") + " - " + prefs.getString(KEY_JAM_TUTUP, ""));
+                no_hp.setText("no hp:   " + prefs.getString(KEY_NO_HP, "")); // Load saved no_hp if available
+                email.setText("email:   " + prefs.getString(KEY_EMAIL, "")); // Load saved email if available
+
+                Toast.makeText(this, "Data loaded from previous session.", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Please go back to Home and select a warung.", Toast.LENGTH_LONG).show();
+            }
         }
 
-        Bundle bundle = new Bundle();
-        bundle.putString("pemilik_warung_id", idPemilik);
-        ViewUtils.setButton(btnChat, this, ChatActivity.class, bundle);
-
-        namaWarung.setText(intent.getStringExtra("nama_warung"));
-        jenisWarung.setText(intent.getStringExtra("jenis_warung"));
-        alamat.setText("alamat: "+intent.getStringExtra("alamat"));
-        tvAlamat.setText(intent.getStringExtra("alamat"));
-
-        jam_buka.setText("Buka:   " + intent.getStringExtra("jam_buka"));
-        jam_tutup.setText("Tutup:   " + intent.getStringExtra("jam_tutup"));
-        tvJamOprasi.setText(intent.getStringExtra("jam_buka")+" - "+intent.getStringExtra("jam_tutup"));
+        // If a valid idPemilik is available (either from Intent or SharedPreferences), call data
+        if (currentIdPemilik != null) {
+            CallData(currentIdPemilik, editor); // Pass editor to save fetched data
+            Bundle bundle = new Bundle();
+            bundle.putString("pemilik_warung_id", currentIdPemilik);
+            bundle.putString("nama_warung", namaWarungFromIntent);
+            ViewUtils.setButton(btnChat, this, ChatActivity.class, bundle);
+        } else {
+            // Disable chat button if no warung ID is available
+            btnChat.setEnabled(false);
+            btnChat.setAlpha(0.5f); // Visually indicate it's disabled
+        }
     }
-    private void CallData(String id) {
+
+    /**
+     * Fetches additional warung details (no_hp, email) from the API using the provided ID.
+     *
+     * @param id The ID of the warung owner.
+     * @param editor SharedPreferences.Editor to save fetched data.
+     */
+    private void CallData(String id, SharedPreferences.Editor editor) {
         String url = ConstantsVariabels.BASE_URL + ConstantsVariabels.ENDPOINT_USER + id;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
@@ -105,24 +168,29 @@ public class DetailWarungActivity extends AppCompatActivity {
                 response -> {
                     try {
                         JSONObject data = response.getJSONObject("data");
-                        String noHpUser = "no hp:   " + data.getString("no_hp");
-                        String emailUser ="email:   " + data.getString("email");
+                        String noHpUser = data.getString("no_hp");
+                        String emailUser = data.getString("email");
 
-                        no_hp.setText(noHpUser);
-                        email.setText(emailUser);
+                        // Update TextViews
+                        no_hp.setText("no hp:   " + noHpUser);
+                        email.setText("email:   " + emailUser);
+
+                        // Save fetched no_hp and email to SharedPreferences
+                        editor.putString(KEY_NO_HP, noHpUser);
+                        editor.putString(KEY_EMAIL, emailUser);
+                        editor.apply();
 
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        Toast.makeText(getApplicationContext(), "Gagal parsing data", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Failed to parse data: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 },
                 error -> {
                     error.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "Gagal ambil data: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Failed to fetch data: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                 }
         );
-        // tambahkan request ke queue langsung
+        // Add the request to the queue
         requestQueue.add(jsonObjectRequest);
     }
-
 }

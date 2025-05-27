@@ -1,4 +1,4 @@
-package com.example.jagajajan;
+package com.example.jagajajan.model;
 
 public class ItemsContens {
     private final String nama;

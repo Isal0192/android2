@@ -1,4 +1,4 @@
-package com.example.jagajajan;
+package com.example.jagajajan.model;
 
 public class WarungData {
     private String id_warung;
@@ -38,9 +38,7 @@ public class WarungData {
         return foto_warung_url;
     }
 
-    public void setFoto_warung_url(String foto_warung_url) {
-        this.foto_warung_url = foto_warung_url;
-    }
+    public void setFoto_warung_url(String foto_warung_url) {this.foto_warung_url = foto_warung_url;}
 
     public String getAlamat() {
         return alamat;

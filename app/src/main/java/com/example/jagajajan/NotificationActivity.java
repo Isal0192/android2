@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 
+import com.example.jagajajan.utils.ViewUtils;
+
 public class NotificationActivity extends AppCompatActivity {
 
     private ImageView previouspagenf, messagenfn ;

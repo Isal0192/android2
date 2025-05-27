@@ -20,6 +20,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.jagajajan.adapter.DataAdapter;
+import com.example.jagajajan.model.ItemsContens;
+import com.example.jagajajan.model.WarungData;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -63,9 +66,6 @@ public class Home extends AppCompatActivity {
 
         requestQueue = Volley.newRequestQueue(this);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("user_pref", MODE_PRIVATE);
-        String name = sharedPreferences.getString("name", null);
-        String id = sharedPreferences.getString("id", null);
 
         perofile.setOnClickListener(v -> {
             Intent intent = new Intent(getApplicationContext(), PerofileActivity.class);
@@ -77,10 +77,14 @@ public class Home extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.nav_home:
+                        Intent intent1 = new Intent(getApplicationContext(), Home.class);
+                        startActivity(intent1);
                         return true;
                     case R.id.nav_search:
                         return true;
                     case R.id.nav_profile:
+                        Intent intent3 = new Intent(getApplicationContext(), PerofileActivity.class);
+                        startActivity(intent3);
                         return true;
                 }
                 return false;

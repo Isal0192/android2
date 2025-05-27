@@ -116,9 +116,9 @@
 
         <EditText
             android:id="@+id/Pesan_chat"
-            android:layout_width="1dp"
+            android:layout_width="0dp"
             android:layout_height="40dp"
-            android:layout_weight="4.0"
+            android:layout_weight="4d"
             android:hint="pesan..."
             android:textStyle="bold"
             android:layout_gravity="right"
@@ -138,5 +138,35 @@
      </LinearLayout>
     </LinearLayout>
 
+    <!-- Extra Rounded Box
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Pesan_chat"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/background_radius_3sisi"
+        android:orientation="horizontal"
+        android:padding="12dp">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="••••••••"
+            android:textColor="#000000" />
+    </LinearLayout>
+    -->
+
+    <!-- Bottom Navigation -->
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#FFFFFF"
+        app:menu="@menu/bottom_nav_menu" />
 </RelativeLayout>

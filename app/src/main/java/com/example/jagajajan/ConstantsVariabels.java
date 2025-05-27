@@ -7,18 +7,12 @@ import android.view.View;
 import android.view.Window;
 
 public class ConstantsVariabels {
-    public static final String BASE_URL = "http://192.168.50.235:3000/api/v1";
-
-    //    /auth
-    public static final String ENDPOINT_LOGIN = "/auth/login";
-    public static final String ENDPPOINT_REGISTER = "/auth/register";
-    //    auth/user
-    public static final String ENDPOINT_USER = "/auth/user/";//GET/:id PUT:id
-
-    //    /warung
-    public static final String ENPOINT_WARUNG = "/warung";//GET. pake header id (PUT/:id)
-    public static final String ENDPOINT_WARUNG_REGISTER= "/warung/register";//POST
-
+    public static final String BASE_URL = "http://192.168.104.180:3000/api/";
+    public static final String ENDPOINT_LOGIN = "auth/login";
+    public static final String ENDPPOINT_REGISTER = "auth/register";
+    public static final String ENDPOINT_USER = "user/";
+    public static final String ENDPOINT_WARUNG = "warung/register";
+    public static final String ENPOINT_WARUNG = "warung/all";
 
     public static void hideSystemUI(Window window) {
         if (window != null) {
@@ -33,14 +27,4 @@ public class ConstantsVariabels {
             }, 0);
         }
     }
-    public static final String APP_PREF_NAME = "user_pref";
-    public static final String USER_PROFILE_PREF = "user_profile";
-
-    public static final String KEY_USER_ID = "id";
-    public static final String KEY_FULL_NAME = "full_name";
-    public static final String KEY_USERNAME = "username";
-    public static final String KEY_PHONE = "phone";
-    public static final String KEY_EMAIL = "email";
-    public static final String KEY_ADDRESS = "address";
-    public static final String KEY_PROFILE_IMAGE = "profile_image";
 }

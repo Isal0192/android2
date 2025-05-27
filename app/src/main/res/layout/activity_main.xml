@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GetStartedInfoActivity">
-    <!--tampilan view ke dua setelah getstarted-->
+    tools:context=".MainActivity">
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -130,11 +129,13 @@
                     android:textColor="@color/black"/>
 
             </LinearLayout>
+
+
         </LinearLayout>
 
 
         <Button
-            android:id="@+id/daftar"
+            android:id="@+id/to_sigin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

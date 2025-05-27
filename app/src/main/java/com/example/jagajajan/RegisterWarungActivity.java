@@ -33,7 +33,7 @@ public class RegisterWarungActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
     private Uri imageUri;
     private RequestQueue requestQueue;
-    private static final String URL_DAFTAR_WARUNG = ConstantsVariabels.BASE_URL + ConstantsVariabels.ENPOINT_WARUNG;
+    private static final String URL_DAFTAR_WARUNG = ConstantsVariabels.BASE_URL + ConstantsVariabels.ENDPOINT_WARUNG;
     private static final String PREF_NAME = "user_pref";
     private static final String TAG = "RegisterWarungActivity";
     private String base64Image;

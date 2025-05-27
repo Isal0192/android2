@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.Window;
 
 public class ConstantsVariabels {
-    public static final String BASE_URL = "http://192.168.50.235:3000/api/v1";
+    public static final String BASE_URL = "http://192.168.0.105:3000/api/v1";
 
     //    /auth
     public static final String ENDPOINT_LOGIN = "/auth/login";
@@ -18,7 +18,8 @@ public class ConstantsVariabels {
     //    /warung
     public static final String ENPOINT_WARUNG = "/warung";//GET. pake header id (PUT/:id)
     public static final String ENDPOINT_WARUNG_REGISTER= "/warung/register";//POST
-
+    //    /pesan
+    public static final String ENPOINT_PESAN = "/pesan";
 
     public static void hideSystemUI(Window window) {
         if (window != null) {

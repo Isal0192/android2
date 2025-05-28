@@ -33,11 +33,11 @@ public class RegisterWarungActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
     private Uri imageUri;
     private RequestQueue requestQueue;
-    private static final String URL_DAFTAR_WARUNG = ConstantsVariabels.BASE_URL + ConstantsVariabels.ENPOINT_WARUNG;
+    private static final String URL_DAFTAR_WARUNG = ConstantsVariabels.BASE_URL + ConstantsVariabels.ENDPOINT_WARUNG_REGISTER;
     private static final String PREF_NAME = "user_pref";
     private static final String TAG = "RegisterWarungActivity";
     private String base64Image;
-
+    private String fileName = null; // Tambahkan variabel untuk nama file gambar
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,10 +84,13 @@ public class RegisterWarungActivity extends AppCompatActivity {
             // Konversi gambar ke Base64
             try {
                 base64Image = uriToBase64(imageUri);
+                // Mendapatkan nama file sederhana dari URI
+                fileName = getFileNameFromUri(imageUri);
             } catch (IOException e) {
                 e.printStackTrace();
                 Toast.makeText(this, "Gagal mengonversi gambar", Toast.LENGTH_SHORT).show();
                 base64Image = null;
+                fileName = null;
             }
         }
     }
@@ -102,7 +105,8 @@ public class RegisterWarungActivity extends AppCompatActivity {
         String jamTutup = ViewUtils.getText(etJamTutup);
 
         if (validateInput(namaWarung, alamatWarung, noTeleponWarung, kategoriWarung, deskripsiWarung, jamBuka, jamTutup)) {
-            daftarWarung(namaWarung, alamatWarung, noTeleponWarung, kategoriWarung, deskripsiWarung, jamBuka, jamTutup, base64Image);
+            // Mengirim `fileName` alih-alih `base64Image` ke backend untuk `foto_warung`
+            daftarWarung(namaWarung, alamatWarung, noTeleponWarung, kategoriWarung, deskripsiWarung, jamBuka, jamTutup, fileName);
         }
     }
 
@@ -138,7 +142,8 @@ public class RegisterWarungActivity extends AppCompatActivity {
         return true;
     }
 
-    private void daftarWarung(String namaWarung, String alamatWarung, String noTeleponWarung, String kategoriWarung, String deskripsiWarung, String jamBuka, String jamTutup, String base64Image) {
+    // Metode yang diubah untuk mengirim data sesuai format yang diinginkan
+    private void daftarWarung(String namaWarung, String alamatWarung, String noTeleponWarung, String kategoriWarung, String deskripsiWarung, String jamBuka, String jamTutup, String fotoWarungFileName) {
         // Ambil ID user dari SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
         String idUser = sharedPreferences.getString("id", null);
@@ -146,15 +151,17 @@ public class RegisterWarungActivity extends AppCompatActivity {
         // Buat objek JSON untuk data yang akan dikirim
         JSONObject jsonParams = new JSONObject();
         try {
-            jsonParams.put("id_user", idUser);
+            // **PERUBAHAN DI SINI:**
+            jsonParams.put("id_pemilik", idUser); // Sesuai dengan "id_pemilik"
             jsonParams.put("nama_warung", namaWarung);
             jsonParams.put("jenis_warung", kategoriWarung);
-            jsonParams.put("no_hp", String.valueOf(noTeleponWarung));
-            jsonParams.put("email_bisnis", "");
+            jsonParams.put("no_bisnis", String.valueOf(noTeleponWarung)); // Sesuai dengan "no_bisnis"
             jsonParams.put("alamat", alamatWarung);
-            jsonParams.put("jam_buka", "2025-04-26T" + jamBuka + ":00.000Z");
-            jsonParams.put("jam_tutup", "2025-04-26T" + jamTutup + ":00.000Z");
-            jsonParams.put("foto_warung", base64Image); // Gunakan base64Image
+            jsonParams.put("jam_buka", jamBuka); // Hanya jam (misal: "08:00")
+            jsonParams.put("jam_tutup", jamTutup); // Hanya jam (misal: "17:00")
+            // Mengirim nama file gambar. Jika tidak ada gambar, `fileName` akan null.
+            jsonParams.put("foto_warung", fotoWarungFileName);
+            // `email_bisnis` tidak ada di request yang diinginkan, jadi dihapus.
         } catch (JSONException e) {
             e.printStackTrace();
             Toast.makeText(RegisterWarungActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
@@ -176,6 +183,7 @@ public class RegisterWarungActivity extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
     }
 
+    // Metode untuk mengonversi URI ke Base64 (tetap ada jika backend butuh Base64 di masa depan)
     private String uriToBase64(Uri uri) throws IOException {
         InputStream inputStream = getContentResolver().openInputStream(uri);
         if (inputStream == null) {
@@ -190,5 +198,34 @@ public class RegisterWarungActivity extends AppCompatActivity {
         byte[] byteArray = byteArrayOutputStream.toByteArray();
         return Base64.encodeToString(byteArray, Base64.NO_WRAP);
     }
-}
 
+    // Metode baru untuk mendapatkan nama file dari URI
+    private String getFileNameFromUri(Uri uri) {
+        String result = null;
+        if (uri.getScheme().equals("content")) {
+            // Gunakan ContentResolver untuk mendapatkan nama file dari Content URI
+            android.database.Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+            try {
+                if (cursor != null && cursor.moveToFirst()) {
+                    int nameIndex = cursor.getColumnIndex(android.provider.OpenableColumns.DISPLAY_NAME);
+                    if (nameIndex != -1) {
+                        result = cursor.getString(nameIndex);
+                    }
+                }
+            } finally {
+                if (cursor != null) {
+                    cursor.close();
+                }
+            }
+        }
+        if (result == null) {
+            // Jika tidak bisa mendapatkan dari ContentResolver, coba dari path
+            result = uri.getPath();
+            int cut = result.lastIndexOf('/');
+            if (cut != -1) {
+                result = result.substring(cut + 1);
+            }
+        }
+        return result;
+    }
+}

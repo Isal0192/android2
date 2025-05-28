@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -61,13 +62,14 @@ public class PerofileActivity extends AppCompatActivity {
         tvFabEdit = findViewById(R.id.fab_edit);
         previousPage = findViewById(R.id.previous_page);
         keluar = findViewById(R.id.keluar);
+        daftarWarung = findViewById(R.id.card_daftar_warung);
 
         ConstantsVariabels.hideSystemUI(getWindow());
         requestQueue = Volley.newRequestQueue(this);
 
-        // Listener
+
         ViewUtils.setTextViewOnClickListener(tvTempatNtip, this, DetailWarungActivity.class);
-        ViewUtils.setCardViewOnClickListener((CardView) findViewById(R.id.card_daftar_warung), this, RegisterWarungActivity.class);
+        ViewUtils.setCardViewOnClickListener(daftarWarung, this, RegisterWarungActivity.class);
         ViewUtils.setImageViewOnClickListener(tvFabEdit, this, EditPerofileActivity.class);
         ViewUtils.setImageViewOnClickListener(previousPage, this, Home.class);
 
@@ -118,7 +120,16 @@ public class PerofileActivity extends AppCompatActivity {
             }
         }
     }
+    private void setWarungVisibility(){
+        SharedPreferences profilePref = getSharedPreferences(PREF_PROFILE, MODE_PRIVATE);
+        String peran = profilePref.getString("peran", null);
 
+        if ("pemilik_warung".equalsIgnoreCase(peran)) {
+            daftarWarung.setVisibility(View.GONE);
+        } else {
+            daftarWarung.setVisibility(View.VISIBLE);
+        }
+    }
 
     //    mengambil perofile
     private void getUserProfile(final String id) {
@@ -139,6 +150,7 @@ public class PerofileActivity extends AppCompatActivity {
                         String phone = data.getString("no_hp");
                         String email = data.getString("email");
                         String address = data.getString("alamat");
+                        String peran = data.getString("peran");
 
                         tvName.setText(fullName);
                         tvUsername.setText(username);
@@ -146,7 +158,8 @@ public class PerofileActivity extends AppCompatActivity {
                         tvEmail.setText(email);
                         tvAddress.setText(address);
 
-                        saveProfileToSharedPreferences(fullName, username, phone, email, address);
+                        saveProfileToSharedPreferences(fullName, username, phone, email, address, peran);
+                        setWarungVisibility();
                     } catch (JSONException e) {
                         Log.e("UserProfile", "JSON parsing error: " + e.getMessage());
                         Toast.makeText(this, "Gagal memproses data profil.", Toast.LENGTH_SHORT).show();
@@ -170,7 +183,7 @@ public class PerofileActivity extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
     }
 
-    private void saveProfileToSharedPreferences(String fullName, String username, String phone, String email, String address) {
+    private void saveProfileToSharedPreferences(String fullName, String username, String phone, String email, String address, String peran) {
         SharedPreferences profilePref = getSharedPreferences(PREF_PROFILE, MODE_PRIVATE);
         SharedPreferences.Editor editor = profilePref.edit();
 
@@ -179,6 +192,8 @@ public class PerofileActivity extends AppCompatActivity {
         editor.putString("phone", phone);
         editor.putString("email", email);
         editor.putString("address", address);
+        editor.putString("peran", peran);
+
         editor.apply();
     }
 

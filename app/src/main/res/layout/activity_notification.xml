@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- Top Bar -->
     <RelativeLayout
         android:id="@+id/top_bar"
         android:layout_width="match_parent"
@@ -56,7 +55,6 @@
         android:padding="5dp"
         />
 
-    <!-- verical Card List -->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_notofication"
         android:layout_width="match_parent"
@@ -79,7 +77,6 @@
         android:padding="5dp"
         />
 
-    <!-- verical Card List -->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_chat"
         android:layout_width="match_parent"
@@ -90,7 +87,6 @@
         android:paddingEnd="8dp"
         android:clipToPadding="false" />
 
-    <!-- Bottom Navigation -->
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"

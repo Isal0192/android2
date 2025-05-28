@@ -22,11 +22,12 @@ import org.json.JSONObject;
 
 public class DetailWarungActivity extends AppCompatActivity {
 
+    // TextViews for displaying warung details
     TextView namaWarung, alamat, no_hp, email, jam_buka, jam_tutup, tvAlamat, tvJamOprasi, jenisWarung;
     // Buttons and Layouts
     ImageButton btnChat;
     ImageView btnBack, arrow;
-    LinearLayout detailInfo, detailPeroduk, untuk_penitip;
+    LinearLayout detailInfo, detailPeroduk;
     // Volley RequestQueue for network operations
     private RequestQueue requestQueue;
 
@@ -130,8 +131,8 @@ public class DetailWarungActivity extends AppCompatActivity {
                 jam_buka.setText("Buka:   " + prefs.getString(KEY_JAM_BUKA, ""));
                 jam_tutup.setText("Tutup:   " + prefs.getString(KEY_JAM_TUTUP, ""));
                 tvJamOprasi.setText(prefs.getString(KEY_JAM_BUKA, "") + " - " + prefs.getString(KEY_JAM_TUTUP, ""));
-                no_hp.setText("no hp:   " + prefs.getString(KEY_NO_HP, ""));
-                email.setText("email:   " + prefs.getString(KEY_EMAIL, ""));
+                no_hp.setText("no hp:   " + prefs.getString(KEY_NO_HP, "")); // Load saved no_hp if available
+                email.setText("email:   " + prefs.getString(KEY_EMAIL, "")); // Load saved email if available
 
                 Toast.makeText(this, "Data loaded from previous session.", Toast.LENGTH_SHORT).show();
             } else {
@@ -143,8 +144,8 @@ public class DetailWarungActivity extends AppCompatActivity {
         if (currentIdPemilik != null) {
             CallData(currentIdPemilik, editor); // Pass editor to save fetched data
             Bundle bundle = new Bundle();
-            bundle.putString("id", currentIdPemilik);
-            bundle.putString("nama", namaWarungFromIntent);
+            bundle.putString("pemilik_warung_id", currentIdPemilik);
+            bundle.putString("nama_warung", namaWarungFromIntent);
             ViewUtils.setButton(btnChat, this, ChatActivity.class, bundle);
         } else {
             // Disable chat button if no warung ID is available

@@ -41,7 +41,7 @@
                 android:id="@+id/deskripsiTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Alamat"
+                android:text="Deskripsi"
                 android:textStyle="normal"
                 android:textColor="@color/black"
                 android:scrollHorizontally="true"
@@ -50,10 +50,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:layout_weight="1"
-                android:layout_marginTop="20dp"
-                android:gravity="bottom"
-                android:orientation="vertical">
+                android:gravity="bottom">
 
                 <TextView
                     android:id="@+id/bukaTutupLabelTextView"
@@ -61,7 +60,8 @@
                     android:layout_height="wrap_content"
                     android:text="buka-tutup"
                     android:textColor="@color/black"
-                    android:textStyle="normal" />
+                    android:textStyle="normal"
+                    />
 
                 <TextView
                     android:id="@+id/jamOperasionalTextView"
@@ -69,7 +69,8 @@
                     android:layout_height="wrap_content"
                     android:text="00:00 - 00:00"
                     android:textColor="@color/black"
-                    android:textStyle="normal" />
+                    android:textStyle="normal"
+                    />
 
             </LinearLayout>
 

@@ -3,7 +3,6 @@ package com.example.jagajajan;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
 import android.support.v7.widget.LinearLayoutManager;
@@ -34,10 +33,6 @@ public class ChatActivity extends AppCompatActivity {
     private int penitipId, pemilikId;
     TextView title;
 
-    private final int REFRESH_INTERVAL = 3000; // Refresh every 3 seconds
-    private Handler handler = new Handler();
-    private Runnable refreshChatRunnable;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,24 +51,14 @@ public class ChatActivity extends AppCompatActivity {
         penitipId = Integer.parseInt(sharedPreferences.getString("id","0"));
 
         Intent intent = getIntent();
-        String idStr = getIntent().getStringExtra("id");
-        Log.d("ChatActivity", "Received id_pengguna: " + idStr);
-        int userId = Integer.parseInt(idStr);
-        pemilikId = userId;
-        title.setText(intent.getStringExtra("nama"));
+        pemilikId = Integer.parseInt(intent.getStringExtra("pemilik_warung_id"));
+        title.setText(intent.getStringExtra("nama_warung"));
 
 
         chatAdapter = new ChatAdapter(this, chatList, penitipId);
         recyclerChat.setAdapter(chatAdapter);
 
-        refreshChatRunnable = new Runnable() {
-            @Override
-            public void run() {
-                getChatMessages();
-                handler.postDelayed(this, REFRESH_INTERVAL); // Schedule again
-            }
-        };
-
+        getChatMessages();
         buttonKirim.setOnClickListener(view -> {
             String isiPesan = editTextPesan.getText().toString().trim();
             if (!isiPesan.isEmpty()) {
@@ -149,30 +134,4 @@ public class ChatActivity extends AppCompatActivity {
             }
         }).start();
     }
-    @Override
-    protected void onResume() {
-        super.onResume();
-        startChatPolling(); // Start polling when the activity is resumed
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        stopChatPolling(); // Stop polling when the activity is paused
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        stopChatPolling(); // Stop polling when the activity is destroyed
-    }
-
-    private void startChatPolling() {
-        handler.post(refreshChatRunnable);
-    }
-
-    private void stopChatPolling() {
-        handler.removeCallbacks(refreshChatRunnable);
-    }
 }
-

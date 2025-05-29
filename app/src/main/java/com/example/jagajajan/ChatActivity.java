@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.jagajajan.adapter.ChatAdapter;
 import com.example.jagajajan.model.ChatMessage;
+import com.example.jagajajan.utils.ConstantsVariabels;
 import com.example.jagajajan.utils.ViewUtils;
 
 import org.json.JSONArray;
@@ -31,56 +31,91 @@ public class ChatActivity extends AppCompatActivity {
     private RecyclerView recyclerChat;
     private ChatAdapter chatAdapter;
     private ArrayList<ChatMessage> chatList = new ArrayList<>();
-    private int penitipId, pemilikId;
-    TextView title;
 
-    private final int REFRESH_INTERVAL = 3000; // Refresh every 3 seconds
-    private Handler handler = new Handler();
+    private int penitipId;
+    private int pemilikId;
+
+    private EditText editTextPesan;
+    private ImageView buttonKirim;
+    private ImageView btnBack;
+    private TextView title;
+
+    private final int REFRESH_INTERVAL = 2000; // 2 seconds
+    private final Handler handler = new Handler();
     private Runnable refreshChatRunnable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-        EditText editTextPesan = findViewById(R.id.Pesan_chat);
-        ImageView buttonKirim = findViewById(R.id.button_kirim);
-        ImageView btnBack = findViewById(R.id.btn_back);
+
+        initViews();
+        getIntentData();
+        initRecyclerView();
+        setupChatPolling();
+        setupSendButton();
+
+        sendPesanOtomatisJikaAda();
+    }
+
+    private void initViews() {
+        editTextPesan = findViewById(R.id.Pesan_chat);
+        buttonKirim = findViewById(R.id.button_kirim);
+        btnBack = findViewById(R.id.btn_back);
         title = findViewById(R.id.title);
 
         ViewUtils.setImageViewOnClickListener(btnBack, this, DetailWarungActivity.class);
+    }
 
-        recyclerChat = findViewById(R.id.recycler_chat);
-        recyclerChat.setLayoutManager(new LinearLayoutManager(this));
-
+    private void getIntentData() {
         SharedPreferences sharedPreferences = getSharedPreferences("user_pref", MODE_PRIVATE);
-        penitipId = Integer.parseInt(sharedPreferences.getString("id","0"));
+        penitipId = Integer.parseInt(sharedPreferences.getString("id", "0"));
 
         Intent intent = getIntent();
-        String idStr = getIntent().getStringExtra("id");
-        Log.d("ChatActivity", "Received id_pengguna: " + idStr);
-        int userId = Integer.parseInt(idStr);
-        pemilikId = userId;
+        String idStr = intent.getStringExtra("id");
+        pemilikId = Integer.parseInt(idStr);
+
         title.setText(intent.getStringExtra("nama"));
+    }
 
-
+    private void initRecyclerView() {
+        recyclerChat = findViewById(R.id.recycler_chat);
+        recyclerChat.setLayoutManager(new LinearLayoutManager(this));
         chatAdapter = new ChatAdapter(this, chatList, penitipId);
         recyclerChat.setAdapter(chatAdapter);
+    }
 
-        refreshChatRunnable = new Runnable() {
-            @Override
-            public void run() {
-                getChatMessages();
-                handler.postDelayed(this, REFRESH_INTERVAL); // Schedule again
-            }
+    private void setupChatPolling() {
+        refreshChatRunnable = () -> {
+            getChatMessages();
+            handler.postDelayed(refreshChatRunnable, REFRESH_INTERVAL);
         };
+    }
 
+    private void setupSendButton() {
         buttonKirim.setOnClickListener(view -> {
             String isiPesan = editTextPesan.getText().toString().trim();
             if (!isiPesan.isEmpty()) {
                 kirimPesan(isiPesan);
-                editTextPesan.setText(""); // Kosongkan input setelah kirim
+                editTextPesan.setText("");
             }
         });
+    }
+
+    private void sendPesanOtomatisJikaAda() {
+        Intent intent = getIntent();
+        String namaProduk = intent.getStringExtra("namaProduk");
+        String deskripsi = intent.getStringExtra("deskripsi");
+        String kategori = intent.getStringExtra("kategori");
+
+        if (namaProduk != null || deskripsi != null || kategori != null) {
+            StringBuilder pesanBuilder = new StringBuilder("Halo, saya ingin menitipkan produk berikut:\n");
+            if (namaProduk != null) pesanBuilder.append("• Nama Produk: ").append(namaProduk).append("\n");
+            if (deskripsi != null) pesanBuilder.append("• Deskripsi: ").append(deskripsi).append("\n");
+            if (kategori != null) pesanBuilder.append("• Kategori: ").append(kategori).append("\n");
+
+            kirimPesan(pesanBuilder.toString().trim());
+        }
     }
 
     private void kirimPesan(String isiPesan) {
@@ -101,7 +136,7 @@ public class ChatActivity extends AppCompatActivity {
 
                 int responseCode = conn.getResponseCode();
                 if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_CREATED) {
-                    runOnUiThread(() -> getChatMessages()); // Refresh chat setelah kirim
+                    runOnUiThread(this::getChatMessages);
                 } else {
                     Log.e("KIRIM_CHAT", "Gagal kirim. Kode: " + responseCode);
                 }
@@ -113,11 +148,10 @@ public class ChatActivity extends AppCompatActivity {
         }).start();
     }
 
-
     private void getChatMessages() {
         new Thread(() -> {
             try {
-                String urlString = ConstantsVariabels.BASE_URL + ConstantsVariabels.ENPOINT_PESAN +"/"+ pemilikId + "/" + penitipId;
+                String urlString = ConstantsVariabels.BASE_URL + ConstantsVariabels.ENPOINT_PESAN + "/" + pemilikId + "/" + penitipId;
                 URL url = new URL(urlString);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
@@ -125,14 +159,13 @@ public class ChatActivity extends AppCompatActivity {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                 StringBuilder builder = new StringBuilder();
                 String line;
-
                 while ((line = reader.readLine()) != null) {
                     builder.append(line);
                 }
 
                 JSONArray array = new JSONArray(builder.toString());
-
                 chatList.clear();
+
                 for (int i = 0; i < array.length(); i++) {
                     JSONObject obj = array.getJSONObject(i);
                     ChatMessage message = new ChatMessage();
@@ -149,22 +182,23 @@ public class ChatActivity extends AppCompatActivity {
             }
         }).start();
     }
+
     @Override
     protected void onResume() {
         super.onResume();
-        startChatPolling(); // Start polling when the activity is resumed
+        startChatPolling();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        stopChatPolling(); // Stop polling when the activity is paused
+        stopChatPolling();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        stopChatPolling(); // Stop polling when the activity is destroyed
+        stopChatPolling();
     }
 
     private void startChatPolling() {
@@ -175,4 +209,3 @@ public class ChatActivity extends AppCompatActivity {
         handler.removeCallbacks(refreshChatRunnable);
     }
 }
-

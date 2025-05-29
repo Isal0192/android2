@@ -2,14 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#C3C2C2">
+    android:background="#F5F5F5">
 
     <!-- Top Bar -->
     <RelativeLayout
         android:id="@+id/top_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:background="@color/warna_ijo">
 
         <ImageView
             android:id="@+id/btn_back"
@@ -64,9 +65,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_nama_warung"
-        android:background="@color/white"
+        android:background="@drawable/btnstyle1"
         android:orientation="vertical"
         android:padding="16dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:layout_marginTop="10dp">
 
         <LinearLayout
@@ -132,13 +135,15 @@
                 android:textSize="14sp" />
         </LinearLayout>
 
-<!--        nampilin detail informasi warung    -->
+        <!-- kartu detail informasi warung    -->
         <LinearLayout
             android:id="@+id/detail_informasi_warung"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:layout_marginTop="7dp"
             >
             <TextView
@@ -154,13 +159,16 @@
         </LinearLayout>
     </LinearLayout>
 
+    <!-- kartu lebih detail   -->
     <LinearLayout
         android:id="@+id/card_produk2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@drawable/btnstyle1"
         android:orientation="vertical"
         android:layout_below="@id/card_produk"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:layout_marginTop="7dp"
         android:padding="16dp"
         android:visibility="invisible">
@@ -238,6 +246,116 @@
                     android:textSize="14sp" />
             </LinearLayout>
         </ScrollView>
+    </LinearLayout>
+
+    <!-- kartu pengajuan -->
+    <LinearLayout
+        android:id="@+id/pengajuan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_below="@id/card_produk2"
+        android:layout_marginTop="7dp"
+        android:padding="16dp"
+        android:background="@drawable/btnstyle1"
+        android:visibility="invisible"
+        >
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dagangan saya :"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Nama produk -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nama produk:"
+                android:textSize="16sp"
+                android:textColor="#000000"
+                android:layout_gravity="center_vertical" />
+
+            <EditText
+                android:id="@+id/produk_saya"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:hint="contoh: keripik"
+                android:background="#dddddd"
+                android:paddingHorizontal="8dp"
+                android:textColorHint="#888888"
+                android:inputType="text" />
+        </LinearLayout>
+
+        <!-- Deskripsi -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="deskripsi :"
+                android:textSize="16sp"
+                android:textColor="#000000"
+                android:layout_gravity="top"
+                android:paddingTop="4dp" />
+
+            <EditText
+                android:id="@+id/deskripsi_produk_saya"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:hint="contoh: produk ini harus diganti 1hari / produk ini harus disimpan di suhu -90°C"
+                android:background="#dddddd"
+                android:padding="8dp"
+                android:textColorHint="#888888"
+                android:inputType="textMultiLine"
+                android:gravity="top|start" />
+        </LinearLayout>
+
+        <!-- Kategori -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="kategori :"
+                android:textSize="16sp"
+                android:textColor="#000000"
+                android:layout_gravity="center_vertical" />
+
+            <EditText
+                android:id="@+id/katagori_produk_saya"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:hint="contoh: makanan ringan"
+                android:background="#dddddd"
+                android:paddingHorizontal="8dp"
+                android:textColorHint="#888888"
+                android:inputType="text" />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout

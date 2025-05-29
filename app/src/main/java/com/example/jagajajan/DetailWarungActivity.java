@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity; // Reverted to android.support.v7.app.AppCompatActivity
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -15,6 +17,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.jagajajan.utils.ConstantsVariabels;
 import com.example.jagajajan.utils.ViewUtils; // Assuming this utility class exists
 
 import org.json.JSONException;
@@ -23,11 +26,12 @@ import org.json.JSONObject;
 public class DetailWarungActivity extends AppCompatActivity {
 
     TextView namaWarung, alamat, no_hp, email, jam_buka, jam_tutup, tvAlamat, tvJamOprasi, jenisWarung;
-    // Buttons and Layouts
     ImageButton btnChat;
     ImageView btnBack, arrow;
-    LinearLayout detailInfo, detailPeroduk, untuk_penitip;
-    // Volley RequestQueue for network operations
+    LinearLayout detailInfo, detailPeroduk, formPengajuan;
+    Button pengajuan;
+    EditText produkSaya, deskripsiPerodukSaya, kategoriPerodukSaya;
+    private String currentIdPemilik, namaWarungFromIntent;
     private RequestQueue requestQueue;
 
     // Constants for SharedPreferences keys
@@ -60,6 +64,8 @@ public class DetailWarungActivity extends AppCompatActivity {
         tvAlamat = findViewById(R.id.tv_alamat);
         tvJamOprasi = findViewById(R.id.tv_jam_oprasi);
         jenisWarung = findViewById(R.id.jenis_warung);
+        pengajuan = findViewById(R.id.btn_ajukan_penitipan);
+        formPengajuan = findViewById(R.id.pengajuan);
 
         // Initialize Buttons and Layouts
         btnChat = findViewById(R.id.btn_chat);
@@ -68,16 +74,54 @@ public class DetailWarungActivity extends AppCompatActivity {
         detailPeroduk = findViewById(R.id.card_produk2);
         arrow = findViewById(R.id.arrow);
 
-        // Set OnClickListener for detailInfo LinearLayout to toggle visibility of detailPeroduk
+        final boolean[] trig = {false};
+        final boolean[] isFormVisible = {false}; // status form apakah sudah tampil
+
         detailInfo.setOnClickListener(view -> {
             if (detailPeroduk.getVisibility() == View.GONE) {
                 detailPeroduk.setVisibility(View.VISIBLE);
-                arrow.setImageResource(R.drawable.ic_arrow_up); // Change arrow to up
+                arrow.setImageResource(R.drawable.ic_arrow_up);
+                trig[0] = true;
             } else {
                 detailPeroduk.setVisibility(View.GONE);
-                arrow.setImageResource(R.drawable.ic_arrow_down); // Change arrow to down
+                arrow.setImageResource(R.drawable.ic_arrow_down);
+                trig[0] = false;
             }
         });
+
+        produkSaya = findViewById(R.id.produk_saya);
+        deskripsiPerodukSaya = findViewById(R.id.deskripsi_produk_saya);
+        kategoriPerodukSaya = findViewById(R.id.katagori_produk_saya);
+
+        pengajuan.setOnClickListener(view -> {
+            if (trig[0]) {
+                if (!isFormVisible[0]) {
+                    formPengajuan.setVisibility(View.VISIBLE);
+                    isFormVisible[0] = true;
+                } else {
+                    // Validasi isi form
+                    String produksaya = produkSaya.getText().toString().trim();
+                    String deskripsiproduksaya = deskripsiPerodukSaya.getText().toString().trim();
+                    String kategoriproduksaya = kategoriPerodukSaya.getText().toString().trim();
+
+                    if (produksaya.isEmpty() || deskripsiproduksaya.isEmpty() || kategoriproduksaya.isEmpty()) {
+                        Toast.makeText(getApplicationContext(), "Harap isi semua data terlebih dahulu", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
+                        intent.putExtra("namaProduk", produksaya);
+                        intent.putExtra("deskripsi", deskripsiproduksaya);
+                        intent.putExtra("kategori", kategoriproduksaya);
+                        intent.putExtra("id",currentIdPemilik);
+                        intent.putExtra("nama", namaWarungFromIntent);
+                        startActivity(intent);
+                    }
+                }
+            } else {
+                Toast.makeText(getApplicationContext(), "Harap lihat detail warung terlebih dahulu", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
 
         // Set OnClickListener for back button to navigate to Home activity
         ViewUtils.setImageViewOnClickListener(btnBack, this, Home.class);
@@ -95,7 +139,7 @@ public class DetailWarungActivity extends AppCompatActivity {
         String jamBukaFromIntent = intent.getStringExtra("jam_buka");
         String jamTutupFromIntent = intent.getStringExtra("jam_tutup");
 
-        String currentIdPemilik;
+
 
         // Check if data is available from Intent
         if (idPemilikFromIntent != null) {

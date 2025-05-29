@@ -3,13 +3,11 @@ package com.example.jagajajan;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -19,9 +17,9 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.jagajajan.adapter.NotificationAdapter;
 import com.example.jagajajan.model.NotificationItem;
+import com.example.jagajajan.utils.ConstantsVariabels;
 import com.example.jagajajan.utils.ViewUtils;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 

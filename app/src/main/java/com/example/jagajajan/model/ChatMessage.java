@@ -4,6 +4,7 @@ public class ChatMessage {
     private int idPengirim;
     private int idPenerima;
     private String isiPesan;
+    private int idLampiran;
 
     // Getter
     public int getIdPengirim() {
@@ -18,6 +19,8 @@ public class ChatMessage {
         return isiPesan;
     }
 
+    public int getIdLampiran() {return idLampiran;}
+
     // Setter
     public void setIdPengirim(int idPengirim) {
         this.idPengirim = idPengirim;
@@ -30,4 +33,6 @@ public class ChatMessage {
     public void setIsiPesan(String isiPesan) {
         this.isiPesan = isiPesan;
     }
+
+    public void setIdLampiran(int idLampiran) { this.idLampiran = idLampiran;}
 }

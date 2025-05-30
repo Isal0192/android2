@@ -3,6 +3,7 @@ package com.example.jagajajan.utils; // Menggunakan package utils yang lebih ses
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -96,6 +97,28 @@ public class ViewUtils {
             Log.e(TAG, "ImageView is null");
         }
     }
+
+    public static void spesialImgViewOnClick(ImageView imageView, Context context, Class<?> destinationActivity, String preff) {
+        if (imageView != null) {
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Hapus data dari SharedPreferences
+                    SharedPreferences prefs = context.getSharedPreferences(preff, Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.clear(); // Menghapus semua data
+                    editor.apply(); // Atau gunakan editor.commit();
+
+                    // Navigasi ke activity tujuan
+                    Intent intent = new Intent(context, destinationActivity);
+                    context.startActivity(intent);
+                }
+            });
+        } else {
+            Log.e(TAG, "ImageView is null");
+        }
+    }
+
 
     /**
      * Metode untuk mengatur onClickListener untuk TextView.

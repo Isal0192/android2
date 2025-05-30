@@ -17,7 +17,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
 
     private Context context;
     private List<ChatMessage> chatList;
-    private int userId; // ID pengguna saat ini, untuk membedakan pesan masuk dan keluar
+    private int userId;
 
     public ChatAdapter(Context context, List<ChatMessage> chatList, int userId) {
         this.context = context;
@@ -28,19 +28,25 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
     @Override
     public int getItemViewType(int position) {
         ChatMessage chat = chatList.get(position);
+        if (chat.getIdLampiran() != 0) {
+            return 2;
+        }
         return (chat.getIdPengirim() == userId) ? 1 : 0;
     }
 
     @Override
     public ChatViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
-        if (viewType == 1) { // Pesan dari kita (pengirim)
+        if (viewType == 2) {
+            view = LayoutInflater.from(context).inflate(R.layout.item_chat_acivment, parent, false);
+        } else if (viewType == 1) {
             view = LayoutInflater.from(context).inflate(R.layout.item_chat_sent, parent, false);
-        } else { // Pesan dari lawan bicara (penerima)
+        } else {
             view = LayoutInflater.from(context).inflate(R.layout.item_chat_received, parent, false);
         }
         return new ChatViewHolder(view);
     }
+
 
     @Override
     public void onBindViewHolder(ChatViewHolder holder, int position) {

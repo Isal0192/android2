@@ -3,13 +3,14 @@
     android:shape="rectangle">
 
     <!-- Warna latar tombol -->
-    <solid android:color="#FFFFFF"/> <!-- Ubah sesuai warna kamu -->
-
-    <!-- Radius sudut -->
-    <corners android:radius="16dp"/> <!-- Ubah radius sesuai keinginan -->
-
-
-    <!-- (Opsional) border -->
-    <!-- <stroke android:width="2dp" android:color="#FFFFFF"/> -->
+    <solid android:color="#ffff"/>
+    <corners
+        android:topLeftRadius="30dp"
+        android:topRightRadius="30dp"
+        android:bottomRightRadius="30dp"
+        android:bottomLeftRadius="30dp" />
+    <stroke
+        android:width="2dp"
+        android:color="#dddddd"/>
 
 </shape>

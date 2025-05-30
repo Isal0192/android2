@@ -18,11 +18,15 @@ import com.example.jagajajan.utils.ConstantsVariabels;
 import com.example.jagajajan.utils.ViewUtils;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -107,15 +111,41 @@ public class ChatActivity extends AppCompatActivity {
         String namaProduk = intent.getStringExtra("namaProduk");
         String deskripsi = intent.getStringExtra("deskripsi");
         String kategori = intent.getStringExtra("kategori");
+        Log.d("INTENT_DATA", "namaProduk: " + namaProduk + ", deskripsi: " + deskripsi + ", kategori: " + kategori);
 
-        if (namaProduk != null || deskripsi != null || kategori != null) {
-            StringBuilder pesanBuilder = new StringBuilder("Halo, saya ingin menitipkan produk berikut:\n");
-            if (namaProduk != null) pesanBuilder.append("• Nama Produk: ").append(namaProduk).append("\n");
-            if (deskripsi != null) pesanBuilder.append("• Deskripsi: ").append(deskripsi).append("\n");
-            if (kategori != null) pesanBuilder.append("• Kategori: ").append(kategori).append("\n");
 
-            kirimPesan(pesanBuilder.toString().trim());
-        }
+        new Thread(() -> {
+            try {
+                URL url = new URL(ConstantsVariabels.BASE_URL + ConstantsVariabels.ENPOINT_KIRIM_PENGAJUAN);
+                Log.d("POST_URL", url.toString());
+
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Content-Type", "application/json");
+                conn.setDoOutput(true);
+
+                JSONObject jsonParam = new JSONObject();
+                jsonParam.put("id_penitip", penitipId);
+                jsonParam.put("id_penerima", pemilikId);
+                jsonParam.put("nama_produk", namaProduk);
+                jsonParam.put("deskripsi", deskripsi);
+                jsonParam.put("kategori", kategori);
+
+
+                conn.getOutputStream().write(jsonParam.toString().getBytes("UTF-8"));
+                int responseCode = conn.getResponseCode();
+                Log.d("HTTP_RESPONSE", "Code: " + responseCode);
+            } catch (ProtocolException e) {
+                e.printStackTrace();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start();
+
     }
 
     private void kirimPesan(String isiPesan) {
@@ -172,6 +202,7 @@ public class ChatActivity extends AppCompatActivity {
                     message.setIdPengirim(obj.getInt("id_pengirim"));
                     message.setIdPenerima(obj.getInt("id_penerima"));
                     message.setIsiPesan(obj.getString("isi_pesan"));
+                    message.setIdLampiran(obj.optInt("id_lampiran"));
                     chatList.add(message);
                 }
 

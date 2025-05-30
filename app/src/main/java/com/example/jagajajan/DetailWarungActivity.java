@@ -23,6 +23,12 @@ import com.example.jagajajan.utils.ViewUtils; // Assuming this utility class exi
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+
 public class DetailWarungActivity extends AppCompatActivity {
 
     TextView namaWarung, alamat, no_hp, email, jam_buka, jam_tutup, tvAlamat, tvJamOprasi, jenisWarung;
@@ -99,13 +105,14 @@ public class DetailWarungActivity extends AppCompatActivity {
                     formPengajuan.setVisibility(View.VISIBLE);
                     isFormVisible[0] = true;
                 } else {
-                    // Validasi isi form
+                    // Validask isi
                     String produksaya = produkSaya.getText().toString().trim();
                     String deskripsiproduksaya = deskripsiPerodukSaya.getText().toString().trim();
                     String kategoriproduksaya = kategoriPerodukSaya.getText().toString().trim();
 
+
                     if (produksaya.isEmpty() || deskripsiproduksaya.isEmpty() || kategoriproduksaya.isEmpty()) {
-                        Toast.makeText(getApplicationContext(), "Harap isi semua data terlebih dahulu", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "isi semua data terlebih dahulu", Toast.LENGTH_SHORT).show();
                     } else {
                         Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
                         intent.putExtra("namaProduk", produksaya);
@@ -117,14 +124,14 @@ public class DetailWarungActivity extends AppCompatActivity {
                     }
                 }
             } else {
-                Toast.makeText(getApplicationContext(), "Harap lihat detail warung terlebih dahulu", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Lihaat detail warung dulu", Toast.LENGTH_SHORT).show();
             }
         });
 
 
 
         // Set OnClickListener for back button to navigate to Home activity
-        ViewUtils.setImageViewOnClickListener(btnBack, this, Home.class);
+        ViewUtils.spesialImgViewOnClick(btnBack, this, Home.class,PREFS_NAME );
 
         // Get SharedPreferences instance
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
@@ -196,6 +203,7 @@ public class DetailWarungActivity extends AppCompatActivity {
             btnChat.setAlpha(0.5f); // Visually indicate it's disabled
         }
     }
+
 
     /**
      * Fetches additional warung details (no_hp, email) from the API using the provided ID.

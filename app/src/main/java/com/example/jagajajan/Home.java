@@ -41,12 +41,18 @@ public class Home extends AppCompatActivity {
     private List<ItemsContens> dataItemList;
     private RequestQueue requestQueue;
     private List<WarungData> listWarung;
+    private String currentUserId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         ConstantsVariabels.hideSystemUI(getWindow());
+
+        SharedPreferences sharedPreferences = getSharedPreferences("user_pref", MODE_PRIVATE);
+        currentUserId = sharedPreferences.getString("id", null);
+
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         perofile = findViewById(R.id.profile);
@@ -82,6 +88,8 @@ public class Home extends AppCompatActivity {
                         startActivity(intent1);
                         return true;
                     case R.id.nav_search:
+                        Intent intent2 = new Intent(getApplicationContext(), NotificationActivity.class);
+                        startActivity(intent2);
                         return true;
                     case R.id.nav_profile:
                         Intent intent3 = new Intent(getApplicationContext(), PerofileActivity.class);
@@ -123,8 +131,12 @@ public class Home extends AppCompatActivity {
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 WarungData warung = new WarungData();
+                String idPemilikFromJson = jsonObject.getString("id_pemilik");
+                if (currentUserId != null && currentUserId.equals(idPemilikFromJson)) {
+                    continue;
+                }
                 warung.setId_warung(jsonObject.getString("id_warung"));
-                warung.setId_pemilik(jsonObject.getString("id_pemilik"));
+                warung.setId_pemilik(idPemilikFromJson);
                 warung.setNama_warung(jsonObject.getString("nama_warung"));
                 warung.setFoto_warung_url(jsonObject.getString("foto_warung"));
                 warung.setAlamat(jsonObject.getString("alamat"));

@@ -239,4 +239,5 @@ public class ChatActivity extends AppCompatActivity {
     private void stopChatPolling() {
         handler.removeCallbacks(refreshChatRunnable);
     }
+
 }

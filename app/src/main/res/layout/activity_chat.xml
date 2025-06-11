@@ -60,7 +60,9 @@
         android:orientation="horizontal"
         android:padding="8dp"
         android:background="@drawable/background_radius_3sisi_2"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+
+        >
 
         <EditText
             android:id="@+id/Pesan_chat"

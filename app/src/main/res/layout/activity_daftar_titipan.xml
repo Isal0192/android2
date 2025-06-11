@@ -15,7 +15,7 @@
 
         <!-- Tombol Kembali -->
         <ImageView
-            android:id="@+id/previous_pagedttp"
+            android:id="@+id/previous_page"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/ic_baseline_arrow_back_24"

@@ -274,7 +274,20 @@ public class ChatActivity extends AppCompatActivity {
     /* -------------------------------------------------------
        6.  Lifecycle → start/stop polling
        ------------------------------------------------------- */
-    @Override protected void onResume()   { super.onResume();  handler.post(refreshChatRunnable); }
-    @Override protected void onPause()    { super.onPause();   handler.removeCallbacks(refreshChatRunnable); }
-    @Override protected void onDestroy()  { super.onDestroy(); handler.removeCallbacks(refreshChatRunnable); }
+    @Override protected void onResume()   {
+        super.onResume();
+        handler.post(refreshChatRunnable);
+        ConstantsVariabels.hideSystemUI(getWindow());
+    }
+    @Override protected void onPause()    {
+        super.onPause();
+        handler.removeCallbacks(refreshChatRunnable);
+        ConstantsVariabels.hideSystemUI(getWindow());
+    }
+    @Override protected void onDestroy()  {
+        super.onDestroy();
+        handler.removeCallbacks(refreshChatRunnable);
+        ConstantsVariabels.hideSystemUI(getWindow());
+    }
+
 }

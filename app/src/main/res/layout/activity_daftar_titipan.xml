@@ -1,274 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fbfaf3">
+    android:fillViewport="true"
+    android:background="#FFFFFF">
 
-    <!-- Top Bar -->
     <LinearLayout
-        android:id="@+id/top_bar"
+        android:id="@+id/layout_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="16dp">
+        android:orientation="vertical"
+        android:padding="20dp">
 
+        <!-- Tombol Kembali -->
         <ImageView
             android:id="@+id/previous_pagedttp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:src="@drawable/ic_baseline_arrow_back_24"
-            android:tint="@color/black" />
+            android:contentDescription="Kembali"
+            android:layout_gravity="start" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:fontFamily="sans-serif-medium"
-            android:text="Titipkan Barangmu"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
-    </LinearLayout>
-
-    <!-- Foto Profil / Gambar Utama -->
-    <RelativeLayout
-        android:id="@+id/image_container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/top_bar"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="24dp"
-        android:padding="10dp">
-
-        <ImageView
-            android:id="@+id/img_daftar_titipan"
+        <!-- Gambar Produk dan Ikon Kamera -->
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="220dp"
-            android:background="@drawable/rounded_bacground"
-            android:elevation="6dp"
-            android:scaleType="centerCrop" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center_horizontal">
 
-        <ImageView
-            android:id="@+id/camera_icondf"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignBottom="@id/img_warung"
-            android:layout_alignEnd="@id/img_warung"
-            android:src="@android:drawable/ic_menu_camera"
-            android:tint="#757575"
-            android:elevation="7dp" />
-    </RelativeLayout>
+            <ImageView
+                android:id="@+id/imageviewdf"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/rounded_bacground"
+                android:padding="4dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/rounded_bacground" />
 
-    <!-- Konten Detail -->
-    <LinearLayout
-        android:id="@+id/container_detail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/image_container"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:background="#FDFCF4">
+            <ImageView
+                android:id="@+id/camera_icondf"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_camera"
+                android:layout_alignBottom="@id/imageviewdf"
+                android:layout_alignEnd="@id/imageviewdf"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp" />
+        </RelativeLayout>
 
-        <!-- Nama Barang -->
+        <!-- Form Input -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nama Barang"
-            android:textSize="14sp"
-            android:textColor="#000000" />
-
+            android:layout_marginTop="24dp"
+            android:textSize="14sp" />
         <EditText
             android:id="@+id/add_barangdf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:hint="nama barang"
-            android:inputType="text"
-            android:minHeight="48dp"
-            android:textColor="#000000" />
+            android:hint="Masukkan nama barang"
+            android:inputType="textCapWords"
+            android:backgroundTint="#000000" />
 
-        <View
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Harga"
+            android:layout_marginTop="16dp"
+            android:textSize="14sp" />
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#DDDDDD" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
 
-        <!-- Harga Jual -->
+            <EditText
+                android:id="@+id/add_hargadf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Masukkan harga"
+                android:layout_weight="2"
+                android:inputType="numberDecimal"
+                android:backgroundTint="#000000" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Satuan (pcs/pack)"
+                android:layout_weight="1"
+               android:gravity="center"
+                android:backgroundTint="#000000" />
+        </LinearLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Harga Jual"
-            android:textSize="14sp"
-            android:textColor="#000000"
-            android:layout_marginTop="12dp" />
-
+            android:layout_marginTop="16dp"
+            android:textSize="14sp" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginTop="4dp">
-
-            <EditText
-                android:id="@+id/add_hargadf"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="1500"
-                android:inputType="number"
-                android:textColor="#000000"
-                android:background="@null"
-                android:minHeight="48dp"
-                android:paddingVertical="12dp"
-                android:textSize="16sp" />
-
-            <EditText
-                android:id="@+id/add_pcs_packdf"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:hint="/ pcs, pack"
-                android:inputType="text"
-                android:minHeight="48dp"
-                android:textColor="#000000"
-                android:textSize="14sp" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="8dp"
-            android:background="#DDDDDD" />
-
-        <!-- Keuntungan Pemilik -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="Keuntungan Pemilik"
-            android:textSize="14sp"
-            android:textColor="#000000" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginTop="4dp">
+            >
 
             <EditText
                 android:id="@+id/add_kentungan_pemilikdf"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="500"
-                android:inputType="number"
-                android:textColor="#000000"
-                android:background="@null"
-                android:minHeight="48dp"
-                android:paddingVertical="12dp"
-                android:textSize="16sp" />
+                android:hint="Masukkan harga"
+                android:layout_weight="2"
+                android:inputType="numberDecimal"
+                android:backgroundTint="#000000" />
 
-            <EditText
-                android:id="@+id/add_pcsdf"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:hint="/ pcs"
-                android:inputType="text"
-                android:minWidth="48dp"
-                android:minHeight="48dp"
-                android:textColor="#000000"
-                android:textSize="14sp" />
+                android:hint="Satuan (pcs/pack)"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:backgroundTint="#000000" />
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="8dp"
-            android:background="#DDDDDD" />
-
-        <!-- Stok Produk -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="Stok Produk"
-            android:textSize="14sp"
-            android:textColor="#000000" />
-
+            android:text="Jumlah Stok"
+            android:layout_marginTop="16dp"
+            android:textSize="14sp" />
         <EditText
             android:id="@+id/add_stockdf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="10"
+            android:hint="Jumlah stok"
             android:inputType="number"
-            android:textColor="#000000"
-            android:background="@null"
-            android:layout_marginTop="4dp"
-            android:minHeight="48dp"
-            android:paddingVertical="12dp"
-            android:textSize="16sp" />
+            android:backgroundTint="#000000" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="8dp"
-            android:background="#DDDDDD" />
-
-        <!-- Pergantian Produk -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="Pergantian Produk"
-            android:textSize="14sp"
-            android:textColor="#000000" />
-
-        <LinearLayout
+            android:text="Pergantian Produk (opsional)"
+            android:layout_marginTop="16dp"
+            android:textSize="14sp" />
+        <EditText
+            android:id="@+id/pergantian_produckdf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginTop="4dp">
-
-            <EditText
-                android:id="@+id/pergantian_produckdf"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="1 hari/minggu/bulan"
-                android:inputType="text"
-                android:textColor="#000000"
-                android:minHeight="48dp"
-                android:paddingVertical="12dp"
-                android:textSize="16sp" />
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_user"
-                android:tint="#000000" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="8dp"
-            android:background="#DDDDDD" />
+            android:hint="pengambilan produk"
+            android:inputType="date"
+            android:backgroundTint="#000000" />
 
         <!-- Tombol Simpan -->
         <Button
             android:id="@+id/btn_simpandf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:padding="20dp"
             android:text="Simpan"
-            android:textAllCaps="false"
-            android:textColor="@color/black"
-            android:backgroundTint="#D4CFC5"
-            android:textSize="20sp" />
+            android:layout_marginTop="32dp"
+            android:backgroundTint="@color/purple_500"
+            android:textColor="#FFFFFF" />
     </LinearLayout>
-
-</RelativeLayout>
+</ScrollView>

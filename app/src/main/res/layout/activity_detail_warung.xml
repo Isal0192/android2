@@ -162,10 +162,9 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/untuk_penitip"
         android:layout_below="@+id/card_produk"
-        android:layout_marginTop="0dp"
-        android:layout_marginBottom="0dp">
+        android:layout_above="@id/footer"
+        android:layout_marginTop="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -371,6 +370,7 @@
 
 
     <LinearLayout
+        android:id="@+id/footer"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"

@@ -7,8 +7,8 @@
         />
     <item
         android:id="@+id/nav_search"
-        android:icon="@drawable/ic_message"
-        android:title="Pesan" />
+        android:icon="@drawable/notification"
+        android:title="Notification" />
     <item
         android:id="@+id/nav_profile"
         android:icon="@drawable/ic_person"

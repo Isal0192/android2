@@ -93,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "Login berhasil", Toast.LENGTH_SHORT).show();
 
                                 try {
-                                    // 🔐 Ambil data dari respons
+
                                     String id = response.getString("id");
                                     String nama = response.getString("name");
 

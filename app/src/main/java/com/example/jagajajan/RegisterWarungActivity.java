@@ -34,7 +34,7 @@ public class RegisterWarungActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
     private Uri imageUri;
     private RequestQueue requestQueue;
-    private static final String URL_DAFTAR_WARUNG = ConstantsVariabels.BASE_URL + ConstantsVariabels.ENPOINT_WARUNG;
+    private static final String URL_DAFTAR_WARUNG = ConstantsVariabels.BASE_URL + ConstantsVariabels.ENDPOINT_WARUNG_REGISTER;
     private static final String PREF_NAME = "user_pref";
     private static final String TAG = "RegisterWarungActivity";
     private String base64Image;
@@ -147,14 +147,14 @@ public class RegisterWarungActivity extends AppCompatActivity {
         // Buat objek JSON untuk data yang akan dikirim
         JSONObject jsonParams = new JSONObject();
         try {
-            jsonParams.put("id_user", idUser);
+            jsonParams.put("id_pemilik", idUser);
             jsonParams.put("nama_warung", namaWarung);
             jsonParams.put("jenis_warung", kategoriWarung);
             jsonParams.put("no_hp", String.valueOf(noTeleponWarung));
             jsonParams.put("email_bisnis", "");
             jsonParams.put("alamat", alamatWarung);
-            jsonParams.put("jam_buka", "2025-04-26T" + jamBuka + ":00.000Z");
-            jsonParams.put("jam_tutup", "2025-04-26T" + jamTutup + ":00.000Z");
+            jsonParams.put("jam_buka", jamBuka );
+            jsonParams.put("jam_tutup", jamTutup );
             jsonParams.put("foto_warung", base64Image); // Gunakan base64Image
         } catch (JSONException e) {
             e.printStackTrace();

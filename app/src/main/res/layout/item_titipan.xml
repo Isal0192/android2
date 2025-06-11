@@ -1,6 +1,221 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:id="@+id/card_details"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#efefef"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:background="#efefef"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:id="@+id/itemImageView"
+                android:layout_width="170dp"
+                android:layout_height="187dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="9dp"
+                android:scaleType="centerCrop"
+                android:background="@drawable/rounded_bacground"
+                android:src="@drawable/gambar_logo" />
+
+            <android.support.v7.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:id="@+id/itemNameTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="7dp"
+                    android:text="Nama Produk"
+                    android:textSize="18sp"
+                    />
+
+                <TextView
+                    android:id="@+id/itemHargaBeliTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Harga Beli: Rp 0"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/itemHargaJualTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Harga Jual: Rp 0"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/itemStokTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Stok Awal: 0"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/itemGantiProdukTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="7dp"
+                    android:text="Ganti Produk: -"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/updateStok"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/rounded_bacground"
+                    android:backgroundTint="@color/warna_ijo"
+                    android:text="update data" />
+
+            </android.support.v7.widget.LinearLayoutCompat>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/input_update_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/sisa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="number"
+                    android:minHeight="48dp"
+                    android:hint="sisa:"
+                    android:textColor="@color/warna_abu"/>
+                <EditText
+                    android:id="@+id/catetan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:minHeight="48dp"
+                    android:hint="Catatan: "
+                    android:textColor="@color/warna_abu"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/update_stok"
+                android:layout_margin="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_bacground"
+                android:backgroundTint="@color/warna_ijo"
+                android:text="Update" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/transactionDetailsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="16dp"
+            android:visibility="gone"
+            android:layout_margin="10dp"
+            android:background="@drawable/background_rauded_white"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/tvJumlahTerjual"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Jumlah Terjual: 0"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tvTanggalTransaksi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Tanggal Transaksi: -"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tvTotalPenjualan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Total Penjualan: Rp 0"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvCatatanTransaksi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Catatan: -"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tvPendapatanPenitip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Pendapatan Penitip: Rp 0"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tvPendapatanWarung"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Pendapatan Warung: Rp 0"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tvHargaSatuanTransaksi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Harga Satuan Transaksi: Rp 0"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

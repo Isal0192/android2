@@ -7,12 +7,11 @@ import android.view.View;
 import android.view.Window;
 
 public class ConstantsVariabels {
-    public static final String BASE_URL = "http://192.168.50.235:3000/api/v1";
+    public static final String BASE_URL = "http://192.168.0.101:3000/api/v1";
 
     //    /auth
     public static final String ENDPOINT_LOGIN = "/auth/login";
     public static final String ENDPPOINT_REGISTER = "/auth/register";
-    //    auth/user
     public static final String ENDPOINT_USER = "/auth/user/";//GET/:id PUT:id
 
     //    /warung
@@ -21,10 +20,20 @@ public class ConstantsVariabels {
 
     //    /pesan
     public static final String ENPOINT_PESAN = "/pesan";
+
+    //    /notifikasi
     public static final String ENPOINT_NOTIVICATION = "/notifikasi";
 
-    //     /pengajuan Penitipan
-    public static final String ENPOINT_KIRIM_PENGAJUAN = "/produk"; //POST
+    //     /peroduk
+    public static final String ENPOINT_PRODUK = "/produk"; //POST, PUT/:id, GET/:id
+
+    //     /formtitipan
+    public static final String ENPOINT_FORMTITIPAN = "/formtitipan";
+
+    //     /penjualan
+    public static final String ENDPOINT_PENJUALAN = "/penjualan";
+
+
 
     public static void hideSystemUI(Window window) {
         if (window != null) {
@@ -41,7 +50,6 @@ public class ConstantsVariabels {
     }
     public static final String APP_PREF_NAME = "user_pref";
     public static final String USER_PROFILE_PREF = "user_profile";
-
     public static final String KEY_USER_ID = "id";
     public static final String KEY_FULL_NAME = "full_name";
     public static final String KEY_USERNAME = "username";

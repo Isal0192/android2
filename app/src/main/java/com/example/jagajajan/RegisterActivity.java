@@ -3,6 +3,7 @@ package com.example.jagajajan;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log; // <-- Tambahkan ini
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -21,6 +22,8 @@ import org.json.JSONObject;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    private static final String TAG = "RegisterActivity"; // <-- Tambahkan tag log
+
     Button submit;
     TextView login;
     EditText full_name, username, number, email, password, konfirm_pass;
@@ -34,6 +37,8 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        Log.d(TAG, "onCreate: Memulai RegisterActivity");
+
         // Inisialisasi semua komponen
         submit = findViewById(R.id.submit);
         login = findViewById(R.id.login);
@@ -46,12 +51,12 @@ public class RegisterActivity extends AppCompatActivity {
         konfirm_pass = findViewById(R.id.konfirm_password);
         agree = findViewById(R.id.accpt_privasy_policy);
 
-
         // Inisialisasi Volley queue
         queue = Volley.newRequestQueue(this);
 
         // Ketika tombol submit diklik
         submit.setOnClickListener(v -> {
+            Log.d(TAG, "Submit button clicked");
             if (validateInputs()) {
                 try {
                     JSONObject jsonBody = new JSONObject();
@@ -61,20 +66,25 @@ public class RegisterActivity extends AppCompatActivity {
                     jsonBody.put("email", email.getText().toString());
                     jsonBody.put("password", password.getText().toString());
 
+                    Log.d(TAG, "JSON Body: " + jsonBody.toString());
+
                     JsonObjectRequest request = new JsonObjectRequest(
                             Request.Method.POST,
                             url,
                             jsonBody,
                             response -> {
+                                Log.d(TAG, "Response: " + response.toString());
                                 Toast.makeText(getApplicationContext(), "Registrasi berhasil", Toast.LENGTH_SHORT).show();
-                                startActivity   (new Intent(getApplicationContext(), LoginActivity.class));
+                                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                                 finish();
                             },
                             error -> {
                                 if (error.networkResponse != null) {
                                     int statusCode = error.networkResponse.statusCode;
+                                    Log.e(TAG, "Error Response Code: " + statusCode);
                                     Toast.makeText(getApplicationContext(), "Error " + statusCode, Toast.LENGTH_LONG).show();
                                 } else {
+                                    Log.e(TAG, "Error: " + error.getMessage(), error);
                                     Toast.makeText(getApplicationContext(), "Gagal: " + error.getMessage(), Toast.LENGTH_LONG).show();
                                 }
                             }
@@ -83,7 +93,7 @@ public class RegisterActivity extends AppCompatActivity {
                     queue.add(request);
 
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    Log.e(TAG, "JSONException: ", e);
                     Toast.makeText(getApplicationContext(), "Terjadi kesalahan JSON", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -95,8 +105,9 @@ public class RegisterActivity extends AppCompatActivity {
 
     // Validasi input
     private boolean validateInputs() {
+        Log.d(TAG, "Memulai validasi input");
         if (full_name.getText().toString().trim().isEmpty()) {
-            showToast("Username harus diisi");
+            showToast("Nama lengkap harus diisi");
             return false;
         }
         if (username.getText().toString().trim().isEmpty()) {
@@ -123,10 +134,12 @@ public class RegisterActivity extends AppCompatActivity {
             showToast("Anda harus menyetujui kebijakan privasi");
             return false;
         }
+        Log.d(TAG, "Input valid");
         return true;
     }
 
     private void showToast(String message) {
+        Log.d(TAG, "Show toast: " + message);
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

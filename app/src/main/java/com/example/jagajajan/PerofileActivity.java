@@ -80,7 +80,9 @@ public class PerofileActivity extends AppCompatActivity {
             startActivity(new Intent(PerofileActivity.this, LoginActivity.class));
             finishAffinity();
         });
-        setWarungVisibility();
+        SharedPreferences userPref = getSharedPreferences(PREF_USER, MODE_PRIVATE);
+        String id = userPref.getString("id", null);
+        setWarungVisibility(id);
     }
 
     @Override
@@ -174,7 +176,7 @@ public class PerofileActivity extends AppCompatActivity {
         jsonObjectRequest.setTag("profileRequest");
         requestQueue.add(jsonObjectRequest);
     }
-    private void setWarungVisibility(){
+    private void setWarungVisibility(String id){
         SharedPreferences profilePref = getSharedPreferences(PREF_PROFILE, MODE_PRIVATE);
         String peran = profilePref.getString("peran", null);
 
@@ -184,7 +186,8 @@ public class PerofileActivity extends AppCompatActivity {
             ViewUtils.setTextViewOnClickListener(tvTempatNtip, this, ListDagangan.class);
         } else {
             daftarWarung.setVisibility(View.VISIBLE);
-            ViewUtils.setTextViewOnClickListener(tvTempatNtip, this, DetailWarungActivity.class);
+            ViewUtils.setTextViewOnClickListenerWhiteData(tvTempatNtip, this, riwayat_titipan.class, "id_penitip", id);
+
         }
     }
 

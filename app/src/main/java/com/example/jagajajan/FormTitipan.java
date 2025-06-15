@@ -28,6 +28,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.jagajajan.utils.ConstantsVariabels;
+import com.example.jagajajan.utils.ViewUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,7 +47,7 @@ public class FormTitipan extends AppCompatActivity {
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_PERMISSIONS = 100;
-    private ImageView imageView;
+    private ImageView imageView, backtopage;
     private String currentPhotoPath; // Jalur foto yang diambil
     private EditText namaProdukEditText, hargaEditText, hargaJualEditText, stokEditText, gantiProdukEditText;
 
@@ -75,6 +76,13 @@ public class FormTitipan extends AppCompatActivity {
         hargaJualEditText = findViewById(R.id.add_kentungan_pemilikdf);
         stokEditText = findViewById(R.id.add_stockdf);
         gantiProdukEditText = findViewById(R.id.pergantian_produckdf);
+        backtopage =findViewById(R.id.previous_page);
+
+        backtopage.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
+            startActivity(intent);
+            finish();
+        });
 
         namaProdukEditText.setText(savedNamaProduk);
 
@@ -125,6 +133,7 @@ public class FormTitipan extends AppCompatActivity {
                 return;
             }
 
+            // Panggil sendDataToServer dengan jalur foto
             sendDataToServer(idLampiranInt, idPemilikInt, namaProduk, harga, hargaJual, stok, formattedGantiProdukDate, currentPhotoPath);
         });
     }
@@ -226,6 +235,8 @@ public class FormTitipan extends AppCompatActivity {
                 bitmap.recycle(); // Penting: Bebaskan memori bitmap
                 Log.d("FormTitipanDebug", "Foto Barang (Base64 length): " + base64Image.length());
 
+                // Batasan ukuran Base64 jika perlu (misal: 10MB = sekitar 13.7 juta karakter Base64)
+                // Jika terlalu besar, Anda mungkin perlu mengurangi kualitas atau resolusi
                 if (base64Image.length() > (10 * 1024 * 1024 / 0.75)) { // Estimasi 10MB
                     runOnUiThread(() -> Toast.makeText(FormTitipan.this, "Ukuran foto terlalu besar. Coba ambil foto dengan resolusi lebih rendah.", Toast.LENGTH_LONG).show());
                     return;

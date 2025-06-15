@@ -4,31 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ListDagangan">
+    android:background="#fbfaf3"
+    tools:context=".riwayat_titipan">
 
     <LinearLayout
         android:id="@+id/nav_bar"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="56dp"
         android:background="@color/warna_ijo"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/imageViewBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="16dp"
             android:contentDescription="Tombol Kembali"
-            app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
+            app:srcCompat="@drawable/ic_baseline_arrow_back_24"
+            app:tint="@android:color/white" />
 
         <TextView
-            android:id="@+id/navTitleTextView" android:layout_width="wrap_content"
+            android:id="@+id/navTitleTextView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
             android:layout_marginStart="16dp"
             android:fontFamily="sans-serif"
-            android:text="Detail Titipan"
+            android:text="Riwayat Penitipan Saya"
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -38,14 +40,16 @@
         android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/nav_bar" android:layout_centerHorizontal="true"
+        android:layout_below="@+id/nav_bar"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:text="Daftar Barang Titipan"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:text="Riwayat Penitipan Penjualan Produk"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"/>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerViewTitipan"
+        android:id="@+id/recyclerViewTransaksiPenitip"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/titleTextView"
@@ -59,5 +63,15 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tvEmptyState"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="Tidak ada riwayat transaksi ditemukan."
+        android:visibility="gone"
+        android:textSize="18sp"
+        android:textColor="@android:color/darker_gray" />
 
 </RelativeLayout>

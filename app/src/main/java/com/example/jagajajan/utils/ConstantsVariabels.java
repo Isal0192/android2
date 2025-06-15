@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.Window;
 
 public class ConstantsVariabels {
-    public static final String BASE_URL = "http://192.168.0.101:3000/api/v1";
+    public static final String BASE_URL = "http://192.168.50.235:3000/api/v1";
 
     //    /auth
     public static final String ENDPOINT_LOGIN = "/auth/login";

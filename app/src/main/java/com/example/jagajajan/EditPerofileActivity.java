@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 import android.support.v7.widget.CardView;
 
@@ -45,6 +46,9 @@ public class EditPerofileActivity extends AppCompatActivity {
         etAddress = findViewById(R.id.et_address);
         btnSave = findViewById(R.id.btn_save);
         daftarWarung = ViewUtils.findViewById(this, R.id.card_daftar_warung);
+        ImageView imageBack = findViewById(R.id.previous_page);
+        imageBack.setOnClickListener(view -> finish());
+
 
         ConstantsVariabels.hideSystemUI(getWindow());
         setInitialData();

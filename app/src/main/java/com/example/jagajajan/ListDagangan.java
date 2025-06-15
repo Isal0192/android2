@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager; // Perubahan di sini
 import android.support.v7.widget.RecyclerView; // Perubahan di sini
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,6 +46,9 @@ public class ListDagangan extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerViewTitipan);
         progressBar = findViewById(R.id.progressBar);
         titleTextView = findViewById(R.id.titleTextView);
+        ImageView imageBack = findViewById(R.id.imageView);
+
+        imageBack.setOnClickListener(view -> finish());
 
         titipanList = new ArrayList<>();
         adapter = new TitipanAdapter(getApplicationContext(), titipanList);
@@ -102,7 +106,6 @@ public class ListDagangan extends AppCompatActivity {
                             String idTransaksi = penjualanArray.getJSONObject(0).optString("id_transaksi", null);
                             Log.d("fetchTitipanData", "ID Transaksi: " + idTransaksi);
 
-                            // Simpan atau gunakan sesuai kebutuhan
                              this.currentIdTransaksi = idTransaksi;
                              Log.d("dad","data id: "+idTransaksi);
                         }

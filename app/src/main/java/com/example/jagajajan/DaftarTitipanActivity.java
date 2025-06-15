@@ -46,7 +46,7 @@ public class DaftarTitipanActivity extends AppCompatActivity {
         setContentView(R.layout.activity_daftar_titipan);
 
         // Inisialisasi view
-        previusPagedt = ViewUtils.findViewById(this, R.id.previous_pagedttp);
+
         cameraDf = ViewUtils.findViewById(this, R.id.camera_icondf);
         addBarangdf = ViewUtils.findViewById(this, R.id.add_barangdf);
         addHargadf = ViewUtils.findViewById(this, R.id.add_hargadf);
@@ -58,7 +58,7 @@ public class DaftarTitipanActivity extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(this);
 
         // Kembali ke halaman sebelumnya
-        // ViewUtils.setImageViewOnClickListener((ImageView) findViewById(R.id.previous_pagedttp), this, PerofileActivity.class);
+        ViewUtils.setImageViewOnClickListener((ImageView) findViewById(R.id.previous_page), this, PerofileActivity.class);
 
         // Pilih gambar
         cameraDf.setOnClickListener(v -> {

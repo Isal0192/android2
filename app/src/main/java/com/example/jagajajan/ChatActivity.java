@@ -45,7 +45,7 @@ public class ChatActivity extends AppCompatActivity {
     private ImageView btnBack;
     private TextView title;
 
-    private static final int REFRESH_INTERVAL = 2_000; // 2 s
+    private static final int REFRESH_INTERVAL = 2_000;
     private final Handler handler = new Handler();
     private Runnable refreshChatRunnable;
 
@@ -63,9 +63,6 @@ public class ChatActivity extends AppCompatActivity {
         sendPesanOtomatisJikaAda();
     }
 
-    /* -------------------------------------------------------
-       1.  Inisialisasi View & Data
-       ------------------------------------------------------- */
     private void initViews() {
         editTextPesan = findViewById(R.id.Pesan_chat);
         buttonKirim   = findViewById(R.id.button_kirim);
@@ -91,9 +88,6 @@ public class ChatActivity extends AppCompatActivity {
         recyclerChat.setAdapter(chatAdapter);
     }
 
-    /* -------------------------------------------------------
-       2.  Polling & Kirim Pesan
-       ------------------------------------------------------- */
     private void setupChatPolling() {
         refreshChatRunnable = () -> {
             getChatMessages();
@@ -111,13 +105,10 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
-    /* -------------------------------------------------------
-       3.  Kirim Produk otomatis (POST)  🔧 DIPERBAIKI
-       ------------------------------------------------------- */
     private void sendPesanOtomatisJikaAda() {
         Intent intent = getIntent();
         String namaProduk = intent.getStringExtra("namaProduk");
-        if (namaProduk == null || namaProduk.isEmpty()) return; // tidak ada produk
+        if (namaProduk == null || namaProduk.isEmpty()) return;
 
         String deskripsi = intent.getStringExtra("deskripsi");
         String kategori  = intent.getStringExtra("kategori");
@@ -194,9 +185,6 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
-    /* -------------------------------------------------------
-       4.  Kirim Pesan Chat
-       ------------------------------------------------------- */
     private void kirimPesan(String isiPesan) {
         Executors.newSingleThreadExecutor().execute(() -> {
             try {
@@ -229,9 +217,6 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
-    /* -------------------------------------------------------
-       5.  Ambil Pesan
-       ------------------------------------------------------- */
     private void getChatMessages() {
         Executors.newSingleThreadExecutor().execute(() -> {
             HttpURLConnection conn = null;
@@ -271,10 +256,20 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
-    /* -------------------------------------------------------
-       6.  Lifecycle → start/stop polling
-       ------------------------------------------------------- */
-    @Override protected void onResume()   { super.onResume();  handler.post(refreshChatRunnable); }
-    @Override protected void onPause()    { super.onPause();   handler.removeCallbacks(refreshChatRunnable); }
-    @Override protected void onDestroy()  { super.onDestroy(); handler.removeCallbacks(refreshChatRunnable); }
+    @Override protected void onResume()   {
+        super.onResume();
+        handler.post(refreshChatRunnable);
+        ConstantsVariabels.hideSystemUI(getWindow());
+    }
+    @Override protected void onPause()    {
+        super.onPause();
+        handler.removeCallbacks(refreshChatRunnable);
+        ConstantsVariabels.hideSystemUI(getWindow());
+    }
+    @Override protected void onDestroy()  {
+        super.onDestroy();
+        handler.removeCallbacks(refreshChatRunnable);
+        ConstantsVariabels.hideSystemUI(getWindow());
+    }
+
 }

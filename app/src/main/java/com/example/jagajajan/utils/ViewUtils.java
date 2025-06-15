@@ -140,6 +140,20 @@ public class ViewUtils {
             Log.e(TAG, "TextView is null");
         }
     }
+    public static void setTextViewOnClickListenerWhiteData(TextView textView, Context context, Class<?> destinationActivity, String skey, String sval) {
+        if (textView != null) {
+            textView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, destinationActivity);
+                    intent.putExtra(skey, sval);
+                    context.startActivity(intent);
+                }
+            });
+        } else {
+            Log.e(TAG, "TextView is null");
+        }
+    }
 
 
 

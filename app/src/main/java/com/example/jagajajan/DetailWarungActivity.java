@@ -71,7 +71,7 @@ public class DetailWarungActivity extends AppCompatActivity {
 
         btnChat = findViewById(R.id.btn_chat);
         btnBack = findViewById(R.id.btn_back);
-        detailInfoLayout = findViewById(R.id.detail_informasi_warung);
+        detailInfoLayout = findViewById(R.id.detail_informasi_warung_toggle);
         cardProduk2Layout = findViewById(R.id.card_produk2);
         arrow = findViewById(R.id.arrow);
 

@@ -39,6 +39,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
     private final int userId;
     private final RequestQueue requestQueue;
 
+
     public ChatAdapter(Context context, List<ChatMessage> chatList, int userId) {
         this.context = context;
         this.chatList = chatList;
@@ -89,13 +90,21 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("id_lampiran", String.valueOf(message.getIdLampiran()));
 
-        } else if (holder.actionLayout != null) {
-            ambilStatusProduk(message.getIdLampiran(), holder.isipenitipan, holder.buttonSetujui, holder.pengajuanDiTolak, holder.buttonTolak, holder.actionLayout, message.getIdPenerima());
+        } else if (holder.actionLayout != null && viewType == 2) {
+            ambilStatusProduk(
+                    message.getIdLampiran(),
+                    holder.isipenitipan,
+                    holder.pengajuanDiTolak,
+                    holder.prosesPenitipan,
+                    message.getIdPenerima()
+            );
             holder.actionLayout.setVisibility(View.GONE);
         }
+
+
     }
 
-    private void ambilStatusProduk(int idProduk,AppCompatButton isiPenitipan, AppCompatButton btnSetujui,AppCompatButton pengajuanDiTolak, AppCompatButton btnTolak, LinearLayout actionLayout, int pemilikID) {
+    private void ambilStatusProduk(int idProduk,AppCompatButton isiPenitipan, AppCompatButton pengajuanDiTolak, AppCompatButton prosesPenitipan, int pemilikID) {
         String url = ConstantsVariabels.BASE_URL + ConstantsVariabels.ENPOINT_PRODUK + "/" + idProduk;
 
         JsonObjectRequest request = new JsonObjectRequest(
@@ -105,7 +114,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
                 response -> {
                     try {
                         String status = response.getString("status");
-
+                        Log.d("STATUS_PRODUK", "Status Produk: " + status);
                         if (status.equals("disetujui")) {
                             pengajuanDiTolak.setVisibility(View.GONE);
                             isiPenitipan.setVisibility(View.VISIBLE);
@@ -119,6 +128,9 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
                         } else if (status.equals("ditolak")) {
                             isiPenitipan.setVisibility(View.GONE);
                             pengajuanDiTolak.setVisibility(View.VISIBLE);
+                        } else if (status.equals("proses")) {
+                            isiPenitipan.setVisibility(View.GONE);
+                            prosesPenitipan.setVisibility(View.VISIBLE);
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -163,7 +175,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
                 body,
                 response -> {
                     Toast.makeText(context, "Status berhasil diperbarui", Toast.LENGTH_SHORT).show();
-                    if (status.equals("disetujui")) updateButtonUI(holder);
+                    if (status.equals("disetujui")) updateButtonUi(holder);
+
                 },
                 error -> Toast.makeText(context, "Gagal memperbarui status", Toast.LENGTH_SHORT).show()
         ) {
@@ -178,7 +191,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
         requestQueue.add(request);
     }
 
-    private void updateButtonUI(ChatViewHolder holder) {
+    private void updateButtonUi(ChatViewHolder holder) {
         holder.buttonTolak.setVisibility(View.GONE);
         holder.buttonSetujui.setLayoutParams(new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -186,6 +199,35 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
         holder.buttonSetujui.setPadding(20, 10, 20, 10);
         holder.buttonSetujui.setEnabled(false);
     }
+    private void hapusUIchat(String idProduk) {
+        String url = ConstantsVariabels.BASE_URL + ConstantsVariabels.ENDPOINT_PENJUALAN + "/" + idProduk;
+
+        JsonObjectRequest request = new JsonObjectRequest(
+                Request.Method.DELETE,
+                url,
+                null,
+                response -> {
+                    // Berhasil hapus
+                    Toast.makeText(context, "Data berhasil dihapus", Toast.LENGTH_SHORT).show();
+                },
+                error -> {
+                    // Gagal hapus
+                    Toast.makeText(context, "Gagal menghapus data: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.e("HapusChat", "Error: " + error.toString());
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json");
+                return headers;
+            }
+        };
+
+        requestQueue.add(request);
+    }
+
+
 
     @Override
     public int getItemCount() {
@@ -194,13 +236,14 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
 
     public static class ChatViewHolder extends RecyclerView.ViewHolder {
         TextView textMessage;
-        AppCompatButton buttonSetujui, buttonTolak, isipenitipan, pengajuanDiTolak;
+        AppCompatButton buttonSetujui, buttonTolak, isipenitipan, pengajuanDiTolak, prosesPenitipan;
         LinearLayout actionLayout;
 
         public ChatViewHolder(View itemView, int viewType) {
             super(itemView);
             textMessage = itemView.findViewById(R.id.text_message);
             if (viewType == 2) {
+                prosesPenitipan = itemView.findViewById(R.id.proses_penitipan);
                 pengajuanDiTolak = itemView.findViewById(R.id.pengajuan_ditolak);
                 buttonSetujui = itemView.findViewById(R.id.button_setujui);
                 buttonTolak = itemView.findViewById(R.id.button_tolak);

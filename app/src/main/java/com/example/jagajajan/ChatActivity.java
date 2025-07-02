@@ -69,7 +69,7 @@ public class ChatActivity extends AppCompatActivity {
         btnBack       = findViewById(R.id.btn_back);
         title         = findViewById(R.id.title);
 
-        ViewUtils.setImageViewOnClickListener(btnBack, this, Home.class);
+        btnBack.setOnClickListener(view -> finish());
     }
 
     private void getIntentData() {

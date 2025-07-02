@@ -39,7 +39,6 @@ public class NotificationActivity extends AppCompatActivity {
 
     // URL untuk notifikasi, pastikan ini valid
     private static final String URL_CHAT_NOTIFICATIONS = ConstantsVariabels.BASE_URL + ConstantsVariabels.ENPOINT_NOTIVICATION;
-//    private static final String URL_STATUS_PENITIPAN = ConstantsVariabels.BASE_URL + ConstantsVariabels.ENDPOINT_STATUS_PENITIPAN;
 
     private String currentUserId;
 
@@ -81,7 +80,7 @@ public class NotificationActivity extends AppCompatActivity {
         recyclerViewChat.setAdapter(chatAdapter);
 
         // Navigasi
-        ViewUtils.setImageViewOnClickListener(previousPage, this, Home.class);
+        previousPage.setOnClickListener(view -> finish());
         ViewUtils.setImageViewOnClickListener(messageNfn, this, ChatActivity.class);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {

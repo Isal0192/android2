@@ -28,7 +28,7 @@ public class RiwayatTitipan {
     private String namaProdukPenitipAsli; // Nama produk dari produkpenitip
     private String namaPenitip; // Nama penitip dari produkpenitip
 
-    // Konstruktor
+
     public RiwayatTitipan(int idTransaksi, int idWarung, int idProdukTitipan, int jumlahTerjual,
                             String hargaSatuan, String totalPenjualan, String pendapatanWarung,
                             String pendapatanPenitip, String tanggalTransaksi, String catatan,
@@ -88,7 +88,6 @@ public class RiwayatTitipan {
         );
     }
 
-    // --- Getter Methods ---
     public int getIdTransaksi() { return idTransaksi; }
     public int getIdWarung() { return idWarung; }
     public int getIdProdukTitipan() { return idProdukTitipan; }

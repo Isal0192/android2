@@ -143,9 +143,6 @@
                 android:layout_marginTop="12dp"
                 android:background="#DDDDDD" />
 
-
-
-
         </LinearLayout>
     </android.support.design.widget.TextInputLayout>
 

@@ -2,6 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
+    android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fbfaf3">
@@ -41,14 +42,17 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_chat"
         android:layout_width="match_parent"
-        android:layout_height="0dp"          android:layout_weight="1"           android:padding="8dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="8dp"
         android:clipToPadding="false"
         android:scrollbars="vertical"/>
 
     <LinearLayout
         android:id="@+id/message_input"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:padding="8dp"
         android:background="@drawable/background_radius_3sisi_2"
         android:gravity="center_vertical">

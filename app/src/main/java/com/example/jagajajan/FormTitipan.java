@@ -173,7 +173,6 @@ public class FormTitipan extends AppCompatActivity {
     private File createImageFile() throws IOException {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
-        // Direktori Pictures di penyimpanan publik
         File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
         if (!storageDir.exists()) {
             if (!storageDir.mkdirs()) {
@@ -182,7 +181,7 @@ public class FormTitipan extends AppCompatActivity {
             }
         }
         File image = File.createTempFile(imageFileName, ".jpg", storageDir);
-        currentPhotoPath = image.getAbsolutePath(); // Simpan jalur file
+        currentPhotoPath = image.getAbsolutePath();
         return image;
     }
 
@@ -199,11 +198,11 @@ public class FormTitipan extends AppCompatActivity {
             } else {
                 Toast.makeText(this, "File gambar tidak ditemukan. Mungkin gagal disimpan.", Toast.LENGTH_SHORT).show();
                 Log.e("FormTitipan", "Image file not found at: " + currentPhotoPath);
-                currentPhotoPath = null; // Reset path jika gagal
+                currentPhotoPath = null;
             }
         } else if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_CANCELED) {
             Toast.makeText(this, "Pengambilan foto dibatalkan.", Toast.LENGTH_SHORT).show();
-            currentPhotoPath = null; // Kosongkan path jika dibatalkan
+            currentPhotoPath = null;
         }
     }
 
@@ -252,7 +251,6 @@ public class FormTitipan extends AppCompatActivity {
         }
 
 
-        // Buat JSON object untuk request body
         JSONObject jsonParam = new JSONObject();
         try {
             jsonParam.put("id_lampiran", String.valueOf(idLampiran));

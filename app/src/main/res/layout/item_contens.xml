@@ -17,7 +17,8 @@
             android:id="@+id/warungImageView"
             android:layout_width="140dp"
             android:layout_height="119dp"
-            android:src="@drawable/rounded_bacground"/>
+            android:src="@drawable/gambar_logo"
+            android:background="@drawable/rounded_bacground"/>
 
         <LinearLayout
             android:layout_width="0dp"
